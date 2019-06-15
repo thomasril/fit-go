@@ -23,6 +23,8 @@ Route::get('/detail', function () {
     return view('customer.property.detail');
 });
 
+Route::get('/send', 'NotificationController@sendSMSNotification');
+
 Route::group(['middleware' => ['guest']], function(){
     Route::get('/login', 'Auth\LoginController@view');
     Route::post('/login', 'Auth\LoginController@login');

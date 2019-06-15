@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Notification;
+use App\Notifications\SMSNotification;
+use App\User;
 use Illuminate\Http\Request;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class NotificationController extends Controller
 {
@@ -81,5 +84,16 @@ class NotificationController extends Controller
     public function destroy(Notification $notification)
     {
         //
+    }
+
+    public function sendSMSNotification(){
+        $user = User::find(3);
+        $nexmo=app('Nexmo\Client');
+        $nexmo->message()->send([
+            'to' => '+6285885922105',
+            'from' => 'Fitgo',
+            'text' => 'Sayang, kita pulang yuk',
+        ]);
+        return "Success";
     }
 }

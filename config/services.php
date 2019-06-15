@@ -44,4 +44,10 @@ return [
         ],
     ],
 
+    'nexmo' => [
+        'key' => env('a17ed735'),
+        'secret' => env('UvsI4aJT6WUlqMCx'),
+        'sms_from' => 'Fitgo',
+    ],
+
 ];
