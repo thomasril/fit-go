@@ -22,7 +22,21 @@ Route::get('/book/history', 'ScheduleController@bookingHistoryPage')->name('book
 Route::get('/send', 'NotificationController@sendSMSNotification');
 
 Route::get('/reminder', function () {
-    event(new App\Events\Reminder('Someone'));
+    $options = array(
+        'cluster' => 'ap1',
+        'useTLS' => true
+    );
+
+    $pusher = new Pusher\Pusher(
+        config('broadcasting.connections.pusher.key'),
+        config('broadcasting.connections.pusher.secret'),
+        config('broadcasting.connections.pusher.app_id'),
+        $options
+    );
+
+    $data['message'] = 'hello world';
+    $pusher->trigger('reminder-channel', 'reminder-event', $data);
+
     return "Event has been sent!";
 });
 
