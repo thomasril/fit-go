@@ -68,3 +68,4 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/logout', 'Auth\LoginController@logout');
 });
+Route::post('/api/schedule', 'ScheduleController@insertSchedule');

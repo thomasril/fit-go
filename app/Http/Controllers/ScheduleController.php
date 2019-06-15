@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Schedule;
 use App\Sport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -91,30 +92,53 @@ class ScheduleController extends Controller
         $property = $sport->property;
         $startTime = strtotime($property->open_hour);
         $endTime = strtotime($property->close_hour);
-        $data = [];
         $header = [];
         $schedule = [];
-        $fieldCount = $sport->fields()->count();
         for($time = $startTime; $time <= $endTime; $time+=3600) {
             $header[] = date('H:i', $time) . ' - ' . date('H:i', $time + 3600);
         }
-
         foreach($sport->fields as $i=>$field) {
             $schedules = $field->schedules()->whereDate('date', $date)->get();
             for($time = $startTime; $time <= $endTime; $time+=3600) {
                 $data = $schedules->where('time', date('H:i:s', $time))->first();
                 if($data != null) {
                     $schedule[$i][] = [
-                        'booked' => true
+                        'booked' => true,
+                        'data' => $data
                     ];
                 } else {
                     $schedule[$i][] = [
-                        'booked' => false
+                        'booked' => false,
+                        'time' => date('H:i:s', $time),
+                        'field' => $field
                     ];
                 }
             }
         }
-        return compact('header', 'schedule');
+        return compact('header', 'schedule', 'date');
+    }
 
+    public function insertSchedule(Request $request) {
+        if(Auth::user()->role->name == "Owner") {
+            $schedule = new Schedule();
+            $schedule->time = $request->time;
+            $schedule->date = $request->date;
+            $schedule->customer_id = Auth::id();
+            $schedule->field_id = $request->field;
+            $schedule->name = $request->name;
+            $schedule->save();
+        } else if(auth::user()->role->name == "Customer") {
+            $schedule = new Schedule();
+            $schedule->time = $request->time;
+            $schedule->date = $request->date;
+            $schedule->customer_id = Auth::id();
+            $schedule->field_id = $request->field;
+            $schedule->name = Auth::user()->name;
+            $schedule->save();
+        }
+    }
+
+    public function deleteOne($id) {
+        Schedule::find($id)->delete();
     }
 }

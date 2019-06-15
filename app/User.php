@@ -40,4 +40,8 @@ class User extends Authenticatable
     function property() {
         return $this->hasOne(Property::class, 'owner_id', 'id');
     }
+
+    function role() {
+        return $this->belongsTo(Role::class);
+    }
 }

@@ -17,3 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/schedule', 'ScheduleController@getScheduleArrayBySportIdAndDate')->name('api::schedule');
+Route::post('/schedule/delete/{id}', 'ScheduleController@deleteOne')->name('api::deleteSchedule');
