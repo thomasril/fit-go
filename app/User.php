@@ -48,4 +48,8 @@ class User extends Authenticatable
     function subscriptions() {
         return $this->hasMany(Subscription::class, 'owner_id', 'id');
     }
+
+    function review(){
+        return $this->hasOne(Review::class, 'customer_id', 'id');
+    }
 }

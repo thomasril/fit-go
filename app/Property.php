@@ -38,4 +38,12 @@ class Property extends Model
     function user() {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
+
+    function reviews(){
+        return $this->hasMany(Review::class);
+    }
+
+    function ratings(){
+        return $this->hasMany(Rating::class);
+    }
 }

@@ -83,7 +83,7 @@ Route::group(['middleware' => ['auth']], function(){
     });
 
     Route::group(['middleware' => ['customer']], function(){
-
+        Route::post('/review', 'ReviewController@review');
     });
 
     Route::get('/logout', 'Auth\LoginController@logout');

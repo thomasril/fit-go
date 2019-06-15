@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             SportsTableSeeder::class,
             FieldsTableSeeder::class,
             PaymentsTableSeeder::class,
+            RatingsTableSeeder::class,
+            ReviewsTableSeeder::class,
+            FacilitiesTableSeeder::class
         ]);
     }
 }

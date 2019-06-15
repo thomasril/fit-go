@@ -6,7 +6,31 @@
             <div class="card">
                 <img class="card-img-top" style="width: 100%" src="https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-title">{{$property->name}}</h3>
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h3 class="card-title">{{$property->name}}</h3>
+                        </div>
+                        <div class="col-lg-3">
+                            <span class="star mt-1" style="font-size: 20px;">
+                                <div class="star-wrap">
+                                    <span class="star-active" style="width: {{ count($property->ratings) == 0 ? '0' : ($property->ratings->sum('number') / count($property->ratings))*20 }}%">
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="star-inactive">
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -138,42 +162,54 @@
                 </div>
             </div>
 
-            <div class="card mt-5 mb-2">
-                <div class = "card-header">
-                    <h5 class = "card-title">Tulis Ulasan</h5>
+            @if(!Auth::user()->review)
+                <div class="card mt-5 mb-2">
+                    <form method="post" action="{{ url('/review')  }}">
+                        @csrf
+                        <div class = "card-header">
+                            <h5 class = "card-title">Tulis Ulasan dan Penilaian</h5>
+                        </div>
+                        <div class="card-body row">
+                            <input type="hidden" name="property_id" value="{{ $property->id }}">
+                            <div class="col-md-10">
+                                <label for="">Ulasan</label>
+                                <input type = "text" class = "form-control" name="description" placeholder="Tulis ulasan untuk Gor Anjay" required>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="">Penilaian</label>
+                                <input type = "number" class = "form-control" name="number" min="1" max="5" value="1">
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class = "btn btn-primary">Kirim Ulasan</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <input type = "text" class = "form-control" placeholder="Tulis ulasan untuk Gor Anjay">
-                    <button class = "btn btn-primary">Kirim Ulasan</button>
-                </div>
-            </div>
+            @endif
 
             <div class="card mt-5 mb-2">
                 <div class = "card-header">
                     <h5 class = "card-title">Ulasan</h5>
                 </div>
-                <div class="card-body">
-                    <div class = "row">
-                        <div class = "col-lg-2">
-                            <img class = "profile-picture">
+                @foreach($property->reviews as $review)
+                    <div class="card-body">
+                        <div class = "row">
+                            <div class = "col-lg-6">
+                                <strong>{{ $review->user->name }}</strong>
+                            </div>
+                            <div class = "col-lg-6 text-right">
+                                {{ date('d F Y H:m', strtotime($review->created_at)) }}
+                            </div>
                         </div>
 
-                        <div class = "col-lg-10">
-                            <div class = "row">
-                                <div class = "col"><strong>Nama Pengulas</strong></div>
-                            </div>
-                            <div class = "row mt-3">
-                                <div class = "col">Tanggal Pengulas</div>
+                        <div class = "row mt-2">
+                            <div class = "col">
+                                <hr>
+                                {{ $review->description }}
                             </div>
                         </div>
                     </div>
-
-                    <div class = "row mt-2">
-                        <div class = "col">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias aliquid, culpa et excepturi ipsam ipsum maiores, maxime, non quidem suscipit veniam voluptatem voluptates. Animi est fuga necessitatibus tempora voluptates.
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
 
@@ -205,7 +241,4 @@
             </div>
         </div>
     </div>
-
-
-
 @endsection
