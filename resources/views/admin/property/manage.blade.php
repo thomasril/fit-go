@@ -4,6 +4,9 @@
     @csrf
     <div class="col-lg-12">
         <div class="card">
+            <div class="card-header">
+                Mengelola Properti
+            </div>
             <div class="card-body">
                 <table class = "table">
                     <thead>

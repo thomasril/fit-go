@@ -53,6 +53,16 @@
                         <a class="nav-link" href="{{ url('/book/history') }}">Histori Pemesanan</a>
                     </li>
                 @else
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Mengelola
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{ url('/admin/property/manage') }}">Properti</a>
+                            <a class="dropdown-item" href="{{ url('/admin/sport/manage') }}">Olahraga</a>
+                            <a class="dropdown-item" href="{{ url('/admin/bank/manage') }}">Bank</a>
+                        </div>
+                    </li>
                 @endif
             @endif
 
@@ -66,7 +76,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     @if(Auth::user())
-                        <a class="dropdown-item" href="{{ url('/profile') }}">Data Diri</a>
                         <a class="dropdown-item" href="{{ url('/logout') }}">Keluar</a>
                     @else
                         <a class="dropdown-item" href="{{ url('/login') }}">Masuk</a>

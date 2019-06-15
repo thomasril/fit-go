@@ -7,79 +7,35 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function view($id){
+        $items = Item::where('sport_id', $id)->get();
+        return view('owner.item.manage', ['items' => $items]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        $item = new Item();
+        $item->sport_id = $request->sport_id;
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->save();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $item = Item::find($request->id);
+        $item->sport_id = $request->sport_id;
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->save();
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Item $item)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Item $item)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Item $item)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Item  $item
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Item $item)
-    {
-        //
+        $item = Item::find($id);
+        $item->delete();
+        return redirect()->back();
     }
 }
