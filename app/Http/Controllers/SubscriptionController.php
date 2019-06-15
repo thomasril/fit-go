@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\MasterSport;
-use App\Sport;
+use App\Subscription;
 use Illuminate\Http\Request;
 
-class SportController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class SportController extends Controller
      */
     public function index()
     {
-        $sport = MasterSport::all();
-        return view('admin.sport.manage', ['sports' => $sport]);
+        //
     }
 
     /**
@@ -37,20 +35,16 @@ class SportController extends Controller
      */
     public function store(Request $request)
     {
-        $sport = new MasterSport();
-        $sport->name = $request->name;
-        $sport->bookable = $request->bookable;
-        $sport->save();
-        return redirect('/admin/sport/manage');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sport  $sport
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(Sport $sport)
+    public function show(Subscription $subscription)
     {
         //
     }
@@ -58,10 +52,10 @@ class SportController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sport  $sport
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sport $sport)
+    public function edit(Subscription $subscription)
     {
         //
     }
@@ -70,28 +64,22 @@ class SportController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sport  $sport
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Subscription $subscription)
     {
-        $sport = MasterSport::find($request->id);
-        $sport->name = $request->name;
-        $sport->bookable = $request->bookable;
-        $sport->save();
-        return redirect('/admin/sport/manage');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sport  $sport
+     * @param  \App\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subscription $subscription)
     {
-        $sport = MasterSport::find($id);
-        $sport->delete();
-        return redirect('/admin/sport/manage');
+        //
     }
 }

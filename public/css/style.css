@@ -22,8 +22,8 @@ h1,h2,h3,h4,h5 {
 }
 
 /* Header */
-.bg-primary.scrolled {
-    background-color: rgba(33, 173, 168, 0.5) !important;
+.scrolled {
+    background-color: rgba(33, 173, 168, 0.8);
     transition: background-color 1s ease 0s;
 }
 
