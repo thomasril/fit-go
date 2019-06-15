@@ -6,11 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMasterBanksTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('master_banks', function (Blueprint $table) {
@@ -20,11 +16,6 @@ class CreateMasterBanksTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('master_banks');

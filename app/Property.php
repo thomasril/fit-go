@@ -31,7 +31,11 @@ class Property extends Model
         return $this->hasMany(Facility::class);
     }
 
-    function payments(){
+    function payments() {
         return $this->hasMany(Payment::class);
+    }
+
+    function user() {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 }

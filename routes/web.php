@@ -15,13 +15,11 @@ Route::get('/', function () {
     return view('customer.home');
 });
 
-Route::get('/search', function () {
-    return view('customer.property.search');
-});
+Route::get('/search', 'PropertyController@searchPage');
 
-Route::get('/detail', function () {
-    return view('customer.property.detail');
-});
+Route::get('/detail/{id}', 'PropertyController@detailPage')->name('propetyDetailForCustomer');
+Route::get('/detail/{id}/book', 'PropertyController@bookingPage')->name('bookForCustomer');
+Route::get('/book/history', 'ScheduleController@bookingHistoryPage')->name('bookingHistoryForCustomer');
 
 Route::get('/send', 'NotificationController@sendSMSNotification');
 

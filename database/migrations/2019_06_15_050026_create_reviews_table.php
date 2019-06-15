@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateReviewsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('reviews', function (Blueprint $table) {
@@ -27,11 +22,6 @@ class CreateReviewsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('reviews');

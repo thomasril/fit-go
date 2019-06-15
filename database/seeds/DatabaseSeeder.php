@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             MasterSportsTableSeeder::class,
             MasterBanksTableSeeder::class,
             PropertiesTableSeeder::class,
+            ImagesTableSeeder::class,
             SportsTableSeeder::class,
             FieldsTableSeeder::class,
             PaymentsTableSeeder::class,

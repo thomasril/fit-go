@@ -15,13 +15,15 @@
                 navigator.geolocation.getCurrentPosition(function(position) {
                     latit = position.coords.latitude;
                     longit = position.coords.longitude;
+                    $('input[name=latitude]').val(latit);
+                    $('input[name=longitude]').val(longit);
                     var circle = L.circle([latit, longit], {
                         color: 'blue',
                         fillColor: 'blue',
                         fillOpacity: 0.5,
                         radius: 10
                     }).addTo(map);
-                    circle.bindPopup('Current Location').openPopup();
+                    circle.bindPopup('Lokasi Sekarang').openPopup();
                     // var m = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
                     map.panTo(new L.LatLng(latit, longit));
                 });
