@@ -26,6 +26,26 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-6">Tanggal</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6"><input type="date" name="date" class="form-control" value="{{request()->date}}"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">Jam Mulai</div>
+                        <div class="col-6">Jam Selesai</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6">
+                            <input type="time" name="start" class="form-control" value="{{request()->start}}">
+                        </div>
+                        <div class="col-6">
+                            <input type="time" name="end" class="form-control" value="{{request()->end}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <button class="btn btn-primary">Search</button>
                 </div>
             </form>
@@ -48,10 +68,13 @@
                     </div>
                 </div>
                 @foreach($properties as $property)
-                <a class="card mt-4"  style="display: inline-block;width: 49%;" href="{{route('propetyDetailForCustomer', ['id' => $property->id])}}" >
+                <a class="card mt-4"  style="display: inline-block;width: 49%;text-decoration: none; color: black" href="{{route('propetyDetailForCustomer', ['id' => $property->id])}}" >
                     <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
                     <div class="card-body">
                         <p class="card-title">{{$property->name}}</p>
+                        <div>
+                            {{round($property->distance, 2)}} km
+                        </div>
                     </div>
                 </a>
                 @endforeach

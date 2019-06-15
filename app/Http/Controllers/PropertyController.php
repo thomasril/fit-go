@@ -10,10 +10,12 @@ use App\Price;
 use App\Property;
 use App\Sport;
 use App\Subscription;
+use Carbon\Carbon;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class PropertyController extends Controller
@@ -26,7 +28,9 @@ class PropertyController extends Controller
 
     public function index()
     {
-        return view('admin.property.manage');
+        $properties = Property::all();
+
+        return view('admin.property.manage', ['properties' => $properties]);
     }
 
     public function dashboard(){
@@ -181,8 +185,14 @@ class PropertyController extends Controller
     public function searchPage() {
         $search = '';
         $filters = [];
-        $latitude = request()->latitude;
-        $longitude = request()->longitude;
+        $longitude = 106.80293103988141;
+        $latitude = -6.244535956497469;
+
+        if(request()->longitude)
+            $longitude = request()->longitude;
+        if(request()->latitide)
+            $latitude = request()->latitude;
+
         if(request()->search) {
             $search = request()->search;
         }
@@ -191,16 +201,69 @@ class PropertyController extends Controller
         }
 
         $properties = Property::where('name', 'like', "%$search%");
-        if(count($filters) > 0) {
+        if(count($filters) > 0 && request()->start) {
+            $start = strtotime(request()->start);
+            $end = strtotime(request()->end);
+            $date = request()->date;
+            $time = [];
+            for($i = $start; $i < $end; $i+=3600) {
+                $time[] = date('H:i:s', $i);
+            }
+            $properties = $properties->whereHas('sports', function($query) use ($filters, $time, $date) {
+                $query->whereHas('masterSport', function($query) use($filters) {
+                    $query->whereIn('id', $filters);
+                })->whereHas('fields', function($query) use($time, $date) {
+                    foreach($time as $t) {
+                        $query->whereDoesntHave('schedules', function($query) use($t, $date) {
+                            $query->where('time', $t)->where('date', $date);
+                        });
+                    }
+                });
+            });
+        }
+        else if(count($filters) > 0) {
             $properties = $properties->whereHas('sports', function($query) use ($filters) {
                 $query->whereHas('masterSport', function($query) use($filters) {
                     $query->whereIn('id', $filters);
                 });
-            })->get();
-        } else {
-            $properties = $properties->get();
+            });
+        } else if(request()->start) {
+            $start = strtotime(request()->start);
+            $end = strtotime(request()->end);
+            $date = request()->date;
+            $time = [];
+            for($i = $start; $i < $end; $i+=3600) {
+                $time[] = date('H:i:s', $i);
+            }
+            $properties = $properties->whereHas('sports', function($query) use ($time, $date) {
+                $query->whereHas('fields', function($query) use($time, $date) {
+                    foreach($time as $t) {
+                        $query->whereDoesntHave('schedules', function($query) use($t, $date) {
+                            $query->where('time', $t)->where('date', $date);
+                        });
+                    }
+                });
+            });
         }
 
+//        $properties = $properties->sortBy(function($property, $index) use($latitude, $longitude) {
+//            return $this->distance($latitude, $longitude, $property->latitude, $property->longitude, 'K');
+//        });
+
+        $properties = $properties->get();
+        if(request()->start) {
+            $start = strtotime(request()->start);
+            $end = strtotime(request()->end);
+            $time = [];
+            for($i = $start; $i < $end; $i+=3600) {
+                $time[] = date('H:i:s', $i);
+            }
+            $temp = [];
+        }
+        foreach($properties as $property) {
+            $property['distance'] = $this->distance($latitude, $longitude, $property->latitude, $property->longitude, 'K');
+        }
+        $properties = $properties->sortBy('distance');
         return view('customer.property.search', compact('properties'));
     }
 
@@ -212,5 +275,26 @@ class PropertyController extends Controller
     public function bookingPage($id) {
         $property = Property::find($id);
         return view('public.component.schedule', compact('property'));
+    }
+    function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        }
+        else {
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $unit = strtoupper($unit);
+
+            if ($unit == "K") {
+                return ($miles * 1.609344);
+            } else if ($unit == "N") {
+                return ($miles * 0.8684);
+            } else {
+                return $miles;
+            }
+        }
     }
 }
