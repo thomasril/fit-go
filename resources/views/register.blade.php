@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('container')
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">

@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class = "row">
+    <div class = "row mb-5">
         <div class = "col-lg-8 col-md-8 col-sm-6">
             @if(count($properties) == 0)
                 <div class="mt-2">
@@ -49,7 +49,7 @@
                 </div>
                 @foreach($properties as $property)
                 <a class="card mt-4"  style="display: inline-block;width: 49%;" href="{{route('propetyDetailForCustomer', ['id' => $property->id])}}" >
-                    <img class="card-img-top" src="{{$property->images()->first()->name}}" alt="Card image cap">
+                    <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
                     <div class="card-body">
                         <p class="card-title">{{$property->name}}</p>
                     </div>

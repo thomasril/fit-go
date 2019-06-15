@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('customer.home');
-});
+Route::get('/', 'PropertyController@home');
 
 Route::get('/search', 'PropertyController@searchPage');
 

@@ -18,15 +18,16 @@
 
 @section('container')
     <div class="row justify-content-center">
-        <div class="card" style="width: 23rem;">
-            <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-title">
-                <div class="row">
-                    <div class="col-md-7">
-                        Nama Property
-                    </div>
-                    <div class="col-md-5">
+        @foreach($properties as $property)
+            <div class="card" style="width: 23rem;">
+                <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
+                <div class="card-body">
+                    <p class="card-title">
+                    <div class="row">
+                        <div class="col-md-7">
+                            {{ $property->name }}
+                        </div>
+                        <div class="col-md-5">
                             <span class="star">
                                 <div class="star-wrap">
                                     <span class="star-active" style="width:50%">
@@ -45,78 +46,15 @@
                                     </span>
                                 </div>
                             </span>
+                        </div>
                     </div>
+                    </p>
+                    <p class="card-title">
+                        {{ $property->address }}
+                    </p>
                 </div>
-                </p>
-                <p class="card-title">Tempat Property</p>
             </div>
-        </div>
-        <div class="card" style="width: 23rem;">
-            <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-title">
-                <div class="row">
-                    <div class="col-md-7">
-                        Nama Property
-                    </div>
-                    <div class="col-md-5">
-                            <span class="star">
-                                <div class="star-wrap">
-                                    <span class="star-active" style="width:50%">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="star-inactive">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                            </span>
-                    </div>
-                </div>
-                </p>
-                <p class="card-title">Tempat Property</p>
-            </div>
-        </div>
-        <div class="card" style="width: 23rem;">
-            <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
-            <div class="card-body">
-                <p class="card-title">
-                <div class="row">
-                    <div class="col-md-7">
-                        Nama Property
-                    </div>
-                    <div class="col-md-5">
-                            <span class="star">
-                                <div class="star-wrap">
-                                    <span class="star-active" style="width:50%">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="star-inactive">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </span>
-                                </div>
-                            </span>
-                    </div>
-                </div>
-                </p>
-                <p class="card-title">Tempat Property</p>
-            </div>
-        </div>
+        @endforeach
     </div>
 @endsection
 

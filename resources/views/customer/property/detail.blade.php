@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('container')
-    <div class = "row">
+    <div class = "row mb-5">
         <div class = "col-lg-8">
             <div class="card">
                 <img class="card-img-top" style="width: 100%" src="https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" alt="Card image cap">

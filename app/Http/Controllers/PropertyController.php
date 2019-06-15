@@ -10,6 +10,7 @@ use App\Price;
 use App\Property;
 use App\Sport;
 use App\Subscription;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -17,6 +18,12 @@ use Ramsey\Uuid\Uuid;
 
 class PropertyController extends Controller
 {
+    public function home() {
+        $properties = Property::orderBy('created_at', 'desc')->limit(3)->get();
+        return view('customer.home', ['properties' => $properties]);
+    }
+
+
     public function index()
     {
         return view('admin.property.manage');

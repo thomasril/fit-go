@@ -41,7 +41,7 @@
                     @if(Auth::user())
                         {{ Auth::user()->name }}
                     @else
-                        Guest
+                        Tamu
                     @endif
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -64,7 +64,7 @@
     @yield('container')
 </div>
 
-<section id="footer" style="{{ Request::is('register') ?  "margin-top: 5%;" : ''}}">
+<section id="footer">
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
             <div class="col-xs-12 col-sm-6 col-md-6">
