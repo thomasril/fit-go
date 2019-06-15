@@ -4,19 +4,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFieldsTable extends Migration
+class CreateMasterBanksTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('master_banks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sport_id');
             $table->string('name');
             $table->timestamps();
-            $table->softDeletes();
-
-            // Relationship
-            $table->foreign('sport_id')->references('id')->on('sports')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists('master_banks');
     }
 }

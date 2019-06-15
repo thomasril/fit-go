@@ -4,11 +4,6 @@ use Illuminate\Database\Seeder;
 
 class MasterSportsTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('master_sports')->insert([
