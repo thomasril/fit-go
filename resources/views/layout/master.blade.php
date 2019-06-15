@@ -6,8 +6,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicons -->
-    <link href="" rel="icon">
-    <link href="" rel="apple-touch-icon">
+    <link href="{{asset('images/icon-white.png')}}" rel="icon">
+    <link href="{{asset('images/icon-white.png')}}" rel="apple-touch-icon">
 
     <!-- Bootstrap CSS File -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -19,8 +19,10 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Fitgo</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">
+        <img src = "{{asset('images/logo-white.png')}}" style = "width: 50px; height: 50px;">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -99,7 +101,5 @@
 <script src="{{asset('js/jquery-latest.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
-<script>
-    @yield('script')
-</script>
+@yield('script')
 </html>

@@ -121,14 +121,18 @@
 @endsection
 
 
-@section('custom-js')
+@section('script')
+    <script>
+        $(document).ready(function() {
+            // Transition effect for navbar
 
-    $(document).ready(function() {
-    // Transition effect for navbar
+            $('nav').toggleClass('fixed-top');
+            $('nav').removeClass('bg-primary');
 
-    $(window).scroll(function() {
-    // checks if window is scrolled more than 500px, adds/removes solid class
-    $('nav').toggleClass('scrolled', $(this).scrollTop() > 100);
-    });
-    });
+            $(window).scroll(function() {
+                // checks if window is scrolled more than 500px, adds/removes solid class
+                $('nav').toggleClass('scrolled', $(this).scrollTop() > 100);
+            });
+        });
+    </script>
 @endsection

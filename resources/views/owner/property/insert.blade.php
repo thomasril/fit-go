@@ -134,6 +134,7 @@
 @endsection
 
 @section('script')
+    <script>
         $(function() {
             var id = 1;
             $facilityInputTemplate = $($('#facility-input-template').html());
@@ -167,4 +168,5 @@
                 $('#sport-container').append($temp);
             });
         }());
+    </script>
 @endsection
