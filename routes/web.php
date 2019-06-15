@@ -19,8 +19,6 @@ Route::get('/detail/{id}', 'PropertyController@detailPage')->name('propetyDetail
 Route::get('/detail/{id}/book', 'PropertyController@bookingPage')->name('bookForCustomer');
 Route::get('/book/history', 'ScheduleController@bookingHistoryPage')->name('bookingHistoryForCustomer');
 
-Route::get('/send', 'NotificationController@sendSMSNotification');
-
 Route::get('/reminder', function () {
     $options = array(
         'cluster' => 'ap1',

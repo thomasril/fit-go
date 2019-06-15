@@ -4,82 +4,39 @@ namespace App\Http\Controllers;
 
 use App\Price;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PriceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function view($id){
+        $prices = Price::where('sport_id', $id)->get();
+        return view('owner.price.manage', ['prices' => $prices]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        $price = new Price();
+        $price->sport_id = $request->sport_id;
+        $price->name = $request->name;
+        $price->number = $request->number;
+        $price->save();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $price = Price::find($request->id);
+        $price->sport_id = $request->sport_id;
+        $price->name = $request->name;
+        $price->number = $request->number;
+        $price->save();
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Price $price)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Price $price)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Price $price)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Price $price)
-    {
-        //
+        $price = Price::find($id);
+        $price->delete();
+        return redirect()->back();
     }
 }

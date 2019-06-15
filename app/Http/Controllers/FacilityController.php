@@ -7,79 +7,33 @@ use Illuminate\Http\Request;
 
 class FacilityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function view($id){
+        $facilities = Facility::where('sport_id', $id)->get();
+        return view('owner.price.manage', ['facilities' => $facilities]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        $facility = new Facility();
+        $facility->property_id = $request->property_id;
+        $facility->name = $request->name;
+        $facility->save();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $facility = Facility::find($request->id);
+        $facility->property_id = $request->property_id;
+        $facility->name = $request->name;
+        $facility->save();
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Facility  $facility
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Facility $facility)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Facility  $facility
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Facility $facility)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Facility  $facility
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Facility $facility)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Facility  $facility
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Facility $facility)
-    {
-        //
+        $facility = Facility::find($id);
+        $facility->delete();
+        return redirect()->back();
     }
 }

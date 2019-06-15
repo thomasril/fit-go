@@ -71,7 +71,33 @@
                 <a class="card mt-4"  style="display: inline-block;width: 49%;text-decoration: none; color: black" href="{{route('propetyDetailForCustomer', ['id' => $property->id])}}" >
                     <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
                     <div class="card-body">
-                        <p class="card-title">{{$property->name}}</p>
+                        <p class="card-title">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    Nama Property
+                                </div>
+                                <div class="col-md-5">
+                                        <span class="star mt-1">
+                                            <div class="star-wrap">
+                                                <span class="star-active" style="width: {{ count($property->ratings) == 0 ? '0' : ($property->ratings->sum('number') / count($property->ratings))*20 }}%">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="star-inactive">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </span>
+                                </div>
+                            </div>
+                        </p>
                         <div>
                             {{round($property->distance, 2)}} km
                         </div>
@@ -81,24 +107,24 @@
             @endif
         </div>
 
-        <div class = "col-lg-4 col-md-4 col-sm-6 mt-5">
-            <div class = "card">
-                <div class = "card-header">
-                    <h5 class = "card-title">Sponsored</h5>
-                </div>
-                <div class = "card-body">
-                    <div class = "row">
-                        <div class = "col-lg-12">
-                            <div class = "row">
-                                <div class = "col-lg-12"><img src = "https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" style="width: 100%;"></div>
-                                <div class = "col-lg-8 mt-2">Nama Tempat</div>
-                                <div class = "col-lg-4 mt-2">Rating</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{--<div class = "col-lg-4 col-md-4 col-sm-6 mt-5">--}}
+            {{--<div class = "card">--}}
+                {{--<div class = "card-header">--}}
+                    {{--<h5 class = "card-title">Sponsored</h5>--}}
+                {{--</div>--}}
+                {{--<div class = "card-body">--}}
+                    {{--<div class = "row">--}}
+                        {{--<div class = "col-lg-12">--}}
+                            {{--<div class = "row">--}}
+                                {{--<div class = "col-lg-12"><img src = "https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" style="width: 100%;"></div>--}}
+                                {{--<div class = "col-lg-8 mt-2">Nama Tempat</div>--}}
+                                {{--<div class = "col-lg-4 mt-2">Rating</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
     </div>
 @endsection
 
