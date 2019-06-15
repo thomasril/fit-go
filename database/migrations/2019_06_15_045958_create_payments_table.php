@@ -15,7 +15,14 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('property_id');
+            $table->string('method');
+            $table->string('bank');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

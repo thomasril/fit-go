@@ -15,7 +15,14 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('sport_id');
+            $table->string('name');
+            $table->integer('price');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('sport_id')->references('id')->on('sports')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

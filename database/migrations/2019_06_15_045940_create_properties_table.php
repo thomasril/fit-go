@@ -15,7 +15,20 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('owner_id');
+            $table->string('name');
+            $table->string('description');
+            $table->string('address');
+            $table->string('latitude');
+            $table->string('longitude');
+            $table->time('open_hour');
+            $table->time('close_hour');
+            $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('owner_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

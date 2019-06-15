@@ -15,7 +15,13 @@ class CreateFieldsTable extends Migration
     {
         Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('sport_id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('sport_id')->references('id')->on('sports')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

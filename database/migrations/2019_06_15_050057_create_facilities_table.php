@@ -15,7 +15,13 @@ class CreateFacilitiesTable extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('property_id');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

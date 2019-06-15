@@ -15,7 +15,14 @@ class CreateSportsTable extends Migration
     {
         Schema::create('sports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('master_sport_id');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Relationship
+            $table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('master_sport_id')->references('id')->on('master_sports')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
