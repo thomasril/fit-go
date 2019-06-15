@@ -12,15 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('layout.master');
+    return view('customer.home');
 });
 
 Route::get('/search', function () {
-    return view('customer.search');
+    return view('customer.product.search');
 });
 
 Route::get('/detail', function () {
-    return view('customer.detail');
+    return view('customer.product.detail');
 });
 
 Route::group(['middleware' => ['guest']], function(){
