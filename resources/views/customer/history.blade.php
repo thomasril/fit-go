@@ -17,6 +17,10 @@
                             <div class="col-10">{{$schedule->date}}</div>
                         </div>
                         <div class="row">
+                            <div class="col-2">Deposit:</div>
+                            <div class="col-10">{{$schedule->field->sport->price}}</div>
+                        </div>
+                        <div class="row">
                             <div class="col-2">Jam:</div>
                             <div class="col-10">{{date('H:i', strtotime($schedule->time))}} - {{date('H:i', strtotime($schedule->time) + 3600)}}</div>
                         </div>
