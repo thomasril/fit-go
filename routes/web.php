@@ -29,6 +29,11 @@ Route::get('/dashboard', function () {
 
 Route::get('/send', 'NotificationController@sendSMSNotification');
 
+Route::get('/reminder', function () {
+    event(new App\Events\Reminder('Someone'));
+    return "Event has been sent!";
+});
+
 Route::group(['middleware' => ['guest']], function(){
     Route::get('/login', 'Auth\LoginController@view');
     Route::post('/login', 'Auth\LoginController@login');
@@ -73,3 +78,4 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/logout', 'Auth\LoginController@logout');
 });
+Route::post('/api/schedule', 'ScheduleController@insertSchedule');
