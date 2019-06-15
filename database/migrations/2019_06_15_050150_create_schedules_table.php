@@ -18,7 +18,7 @@ class CreateSchedulesTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('field_id');
             $table->time('time');
-            $table->integer('duration');
+            $table->date('date');
             $table->timestamps();
             $table->softDeletes();
 

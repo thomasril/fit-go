@@ -99,7 +99,5 @@
 <script src="{{asset('js/jquery-latest.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
-<script>
-    @yield('script')
-</script>
+@yield('script')
 </html>

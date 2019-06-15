@@ -36,9 +36,13 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::group(['middleware' => ['owner']], function(){
         Route::group(['prefix' => 'property'], function() {
-            Route::get('/manage', 'PropertyController@managePage');
-            Route::get('/insert', 'PropertyController@insertPropertyPage');
-            Route::post('/insert', 'PropertyController@insertProperty');
+            Route::group(['middleware' => ['property.has']], function() {
+                Route::get('/', 'PropertyController@indexPage')->name('indexProperty');
+            });
+            Route::group(['middleware' => ['property.not.has']], function() {
+                Route::get('/insert', 'PropertyController@insertPropertyPage');
+                Route::post('/insert', 'PropertyController@insertProperty')->name('insertProperty');
+            });
         });
     });
 

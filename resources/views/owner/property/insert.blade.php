@@ -7,6 +7,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
+                        <p class="h4">Masukkan Tempat Olahraga</p>
+                    </div>
+                    <hr>
+                    <div class="form-group">
                         <label for="">Nama Tempat</label>
                         <input type="text" name="name" class="form-control">
                     </div>
@@ -39,15 +43,23 @@
 
                 </div>
             </div>
+            <br>
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p class="h5">Fasilitas yang Tersedia</p>
+                    </div>
                     <div class="btn btn-primary" id="add-facility-button">Tambah Fasilitas</div>
                     <hr>
                     <div id="facility-container"></div>
                 </div>
             </div>
+            <br>
             <div class="card">
                 <div class="card-body">
+                    <div>
+                        <p class="h5">Olahraga yang Tersedia</p>
+                    </div>
                     <div class="btn btn-primary" id="add-sport-button">Tambah Jenis Olahraga</div>
                     <hr>
                     <div id="sport-container">
@@ -55,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            <br>
             <div class="form-group">
                 <button class="btn btn-primary">Insert</button>
             </div>
@@ -80,9 +93,9 @@
                     <div class="col-6">
                         <label for="">Jenis Olahraga</label>
                         <select name="sport[]" class="form-control">
-                            <option value="Futsal">Futsal</option>
-                            <option value="Basket">Basket</option>
-                            <option value="Kelereng">Kelereng</option>
+                            @foreach(\App\MasterSport::all() as $masterSport)
+                                <option value="{{$masterSport->id}}">{{$masterSport->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-4">
@@ -134,6 +147,7 @@
 @endsection
 
 @section('script')
+    <script>
         $(function() {
             var id = 1;
             $facilityInputTemplate = $($('#facility-input-template').html());
@@ -167,4 +181,5 @@
                 $('#sport-container').append($temp);
             });
         }());
+    </script>
 @endsection

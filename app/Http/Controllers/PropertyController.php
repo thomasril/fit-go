@@ -90,8 +90,9 @@ class PropertyController extends Controller
         //
     }
 
-    public function managePage() {
-        return view('owner.property.manage');
+    public function indexPage() {
+        $property = Auth::user()->property;
+        return view('public.component.schedule', compact('property'));
     }
 
     public function insertPropertyPage() {
@@ -140,7 +141,7 @@ class PropertyController extends Controller
         for($i = 0; $i < count($sports); $i++) {
             $sport = new Sport();
             $sport->property_id = $property->id;
-            $sport->name = $sports[$i];
+            $sport->master_sport_id = $sports[$i];
             $sport->save();
             $sportFormId = $request->sportid[$i];
             $prices = $request->price[$sportFormId];
