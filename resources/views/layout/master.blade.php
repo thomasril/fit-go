@@ -36,12 +36,18 @@
                     <a class="nav-link" href="{{ url('/search') }}">Cari</a>
                 </li>
                 @if(Auth::user()->role->name == 'Owner')
+                    @if(Auth::user()->property != null)
                     <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
                     </li>
                     <li class="nav-item {{ Request::is('property') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/property') }}">Jadwal</a>
                     </li>
+                    @else
+                        <li class="nav-item {{ Request::is('property/insert') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ url('/property/insert') }}">Masukkan Tempat Olahraga</a>
+                        </li>
+                    @endif
                 @elseif(Auth::user()->role->name == 'Customer')
                     <li class="nav-item {{ Request::is('book/history') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('/book/history') }}">Histori Pemesanan</a>
