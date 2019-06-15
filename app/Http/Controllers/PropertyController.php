@@ -13,6 +13,7 @@ use App\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class PropertyController extends Controller
@@ -156,8 +157,13 @@ class PropertyController extends Controller
     public function searchPage() {
         $search = '';
         $filters = [];
-        $latitude = request()->latitude;
-        $longitude = request()->longitude;
+        $longitude = 106.80293103988141;
+        $latitude = -6.244535956497469;
+        if(request()->longitude)
+            $longitude = request()->longitude;
+        if(request()->latitide)
+            $latitude = request()->latitude;
+
         if(request()->search) {
             $search = request()->search;
         }
@@ -166,6 +172,7 @@ class PropertyController extends Controller
         }
 
         $properties = Property::where('name', 'like', "%$search%");
+
         if(count($filters) > 0) {
             $properties = $properties->whereHas('sports', function($query) use ($filters) {
                 $query->whereHas('masterSport', function($query) use($filters) {
@@ -175,6 +182,9 @@ class PropertyController extends Controller
         } else {
             $properties = $properties->get();
         }
+        $properties = $properties->sortBy(function($property, $index) use($latitude, $longitude) {
+            return $this->distance($latitude, $longitude, $property->latitude, $property->longitude, 'K');
+        });
 
         return view('customer.property.search', compact('properties'));
     }
@@ -187,5 +197,26 @@ class PropertyController extends Controller
     public function bookingPage($id) {
         $property = Property::find($id);
         return view('public.component.schedule', compact('property'));
+    }
+    function distance($lat1, $lon1, $lat2, $lon2, $unit) {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        }
+        else {
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $unit = strtoupper($unit);
+
+            if ($unit == "K") {
+                return ($miles * 1.609344);
+            } else if ($unit == "N") {
+                return ($miles * 0.8684);
+            } else {
+                return $miles;
+            }
+        }
     }
 }
