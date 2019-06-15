@@ -23,7 +23,16 @@ Route::get('/detail', function () {
     return view('customer.property.detail');
 });
 
+Route::get('/dashboard', function () {
+    return view('owner.dashboard');
+});
+
 Route::get('/send', 'NotificationController@sendSMSNotification');
+
+Route::get('/reminder', function () {
+    event(new App\Events\Reminder('Someone'));
+    return "Event has been sent!";
+});
 
 Route::group(['middleware' => ['guest']], function(){
     Route::get('/login', 'Auth\LoginController@view');

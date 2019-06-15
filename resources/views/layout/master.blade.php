@@ -99,7 +99,22 @@
 </body>
 
 <script src="{{asset('js/jquery-latest.min.js')}}"></script>
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
+<script>
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('176eae996f1d611a171c', {
+        cluster: 'ap1',
+        forceTLS: true
+    });
+
+    var channel = pusher.subscribe('reminder-channel');
+
+    channel.bind('reminder-event', function(data) {
+        alert('anjeng');
+    });
+</script>
 @yield('script')
 </html>
