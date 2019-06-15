@@ -21,7 +21,7 @@
         <div class="card" style="width: 23rem;">
             <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">
+                <p class="card-title">
                 <div class="row">
                     <div class="col-md-7">
                         Nama Property
@@ -48,13 +48,13 @@
                     </div>
                 </div>
                 </p>
-                <p class="card-text">Tempat Property</p>
+                <p class="card-title">Tempat Property</p>
             </div>
         </div>
         <div class="card" style="width: 23rem;">
             <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">
+                <p class="card-title">
                 <div class="row">
                     <div class="col-md-7">
                         Nama Property
@@ -81,13 +81,13 @@
                     </div>
                 </div>
                 </p>
-                <p class="card-text">Tempat Property</p>
+                <p class="card-title">Tempat Property</p>
             </div>
         </div>
         <div class="card" style="width: 23rem;">
             <img class="card-img-top" src="{{ asset('images/example/example.jpg') }}" alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">
+                <p class="card-title">
                 <div class="row">
                     <div class="col-md-7">
                         Nama Property
@@ -114,7 +114,7 @@
                     </div>
                 </div>
                 </p>
-                <p class="card-text">Tempat Property</p>
+                <p class="card-title">Tempat Property</p>
             </div>
         </div>
     </div>
