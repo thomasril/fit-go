@@ -23,6 +23,10 @@ Route::get('/detail', function () {
     return view('customer.property.detail');
 });
 
+Route::get('/dashboard', function () {
+    return view('owner.dashboard');
+});
+
 Route::get('/send', 'NotificationController@sendSMSNotification');
 
 Route::group(['middleware' => ['guest']], function(){
