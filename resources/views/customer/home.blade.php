@@ -32,7 +32,7 @@
                         <div class="col-md-5">
                             <span class="star">
                                 <div class="star-wrap">
-                                    <span class="star-active" style="width:50%">
+                                    <span class="star-active" style="width:{{ count($property->ratings) == 0 ? '0' : ($property->ratings->sum('number') / count($property->ratings))*20 }}%">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>

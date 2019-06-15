@@ -19,7 +19,7 @@ class MasterSportController extends Controller
         $sport->name = $request->name;
         $sport->bookable = $request->bookable;
         $sport->save();
-        return redirect('/admin/sport/manage');
+        return redirect()->back();
     }
 
     public function update(Request $request)
@@ -28,13 +28,13 @@ class MasterSportController extends Controller
         $sport->name = $request->name;
         $sport->bookable = $request->bookable;
         $sport->save();
-        return redirect('/admin/sport/manage');
+        return redirect()->back();
     }
 
     public function delete($id)
     {
         $sport = MasterSport::find($id);
         $sport->delete();
-        return redirect('/admin/sport/manage');
+        return redirect()->back();
     }
 }

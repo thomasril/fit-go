@@ -28,7 +28,9 @@ class PropertyController extends Controller
 
     public function index()
     {
-        return view('admin.property.manage');
+        $properties = Property::all();
+
+        return view('admin.property.manage', ['properties' => $properties]);
     }
 
     public function dashboard(){
