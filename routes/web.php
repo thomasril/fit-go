@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth']], function(){
     });
 
     Route::group(['middleware' => ['customer']], function(){
+
     });
 
     Route::get('/logout', 'Auth\LoginController@logout');

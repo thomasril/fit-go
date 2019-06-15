@@ -37,5 +37,32 @@ class UsersTableSeeder extends Seeder
             'phone_number'      => '+6280123456789',
             'created_at'        => '2019-06-15 12:00:00'
         ]);
+
+        DB::table('users')->insert([
+            'role_id'           => 3,
+            'name'              => 'Thomas Asril',
+            'email'             => 'thomas@gmail.com',
+            'password'          => bcrypt('thomas'),
+            'phone_number'      => '+6285885922105',
+            'created_at'        => '2019-06-15 12:00:00'
+        ]);
+
+        DB::table('users')->insert([
+            'role_id'           => 2,
+            'name'              => 'Mario Viegash',
+            'email'             => 'mario@gmail.com',
+            'password'          => bcrypt('mario'),
+            'phone_number'      => '+6280123456789',
+            'created_at'        => '2019-06-15 12:00:00'
+        ]);
+
+        DB::table('users')->insert([
+            'role_id'           => 3,
+            'name'              => 'Jordan Leonardi',
+            'email'             => 'jordan@gmail.com',
+            'password'          => bcrypt('jordan'),
+            'phone_number'      => '+6280123456789',
+            'created_at'        => '2019-06-15 12:00:00'
+        ]);
     }
 }

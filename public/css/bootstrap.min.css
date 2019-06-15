@@ -2454,8 +2454,8 @@ textarea.form-control.is-invalid {
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    margin: 10px 0;
-    padding: 15px 30px;
+    margin: 5px 0;
+    padding: 10px 15px;
     border-radius: 100px!important;
     transition: 0.5s;
     line-height: 1.5;
