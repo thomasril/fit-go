@@ -14,6 +14,12 @@
             height: 20px;
             cursor: pointer;
         }
+        .schedule-self {
+            background-color: blue;
+            width:100%;
+            height: 20px;
+            cursor: pointer;
+        }
     </style>
     <div class="row">
         <div class="col-12">
@@ -56,17 +62,18 @@
                 <input type="hidden" name="field">
                 <input type="hidden" name="date">
                 <div class="modal-content">
-                    <div class="model-header">
+                    <div class="modal-header">
                         <h5 class="modal-title">Pesan Sekarang!</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Pesan</button>
+                    </div>
                 </div>
-                <div class="modal-action">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary">Pesan</button>
-                </div>
+
             </form>
         </div>
     </div>
@@ -119,6 +126,27 @@
             </form>
         </div>
     </div>
+    <div class="modal" role="dialog" tabindex="-1" id="customer-remove-book">
+        <div class="modal-dialog" role="document">
+            <form method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Jadwal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah anda ingin membatalkan jadwal ini?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Hapus</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <script type="text/html" id="schedule-template">
         <tr class="schedule-field"></tr>
     </script>
@@ -149,7 +177,17 @@
                         $tr.append(`<td>${key+1}</td>`);
                         val.forEach(function(val2, key2) {
                             if(val2.booked) {
-                                $tr.append(`<td><div class="schedule-not-available" data-id="${val2.data.id}"></div></td>`)
+                                @if(Auth::user()->role->name == 'Customer')
+                                    var id = parseInt('{{Auth::user()->id}}');
+                                    console.log(val2);
+                                    if(val2.data.customer_id === id) {
+                                        $tr.append(`<td><div class="schedule-self" data-id="${val2.data.id}"></div></td>`)
+                                    } else {
+                                        $tr.append(`<td><div class="schedule-not-available" data-id="${val2.data.id}"></div></td>`)
+                                    }
+                                @else
+                                    $tr.append(`<td><div class="schedule-not-available" data-id="${val2.data.id}"></div></td>`)
+                                @endif
                             } else {
                                 $tr.append(`<td><div class="schedule-available" data-time="${val2.time}" data-field="${val2.field.id}" data-date="${data.date}"></div></td>`)
                             }
@@ -175,6 +213,11 @@
                             $modal.find('input[name=time]').val($(this).data('time'));
                             $modal.find('input[name=date]').val($(this).data('date'));
                             $modal.find('input[name=field]').val($(this).data('field'));
+                            $modal.modal('show');
+                        });
+                        $('.schedule-self').click(function() {
+                            $modal = $('#customer-remove-book');
+                            $modal.find('form').attr('action', `/api/schedule/delete/${$(this).data('id')}`);
                             $modal.modal('show');
                         });
                     @endif
@@ -203,6 +246,31 @@
                 type: 'post',
                 success: function(data) {
                     $('#owner-remove-book').modal('hide');
+                    $('.filter-schedule-form').submit();
+                }
+            });
+        });
+        $('#customer-order-modal').find('form').submit(function(e) {
+            e.preventDefault();
+            $form = $(this);
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'post',
+                data: $form.serialize(),
+                success: function(data) {
+                    $('#customer-order-modal').modal('hide');
+                    $('.filter-schedule-form').submit();
+                }
+            });
+        });
+        $('#customer-remove-book').find('form').submit(function(e) {
+            e.preventDefault();
+            $form = $(this);
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'post',
+                success: function(data) {
+                    $('#customer-remove-book').modal('hide');
                     $('.filter-schedule-form').submit();
                 }
             });

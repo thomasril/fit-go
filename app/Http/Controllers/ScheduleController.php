@@ -141,4 +141,9 @@ class ScheduleController extends Controller
     public function deleteOne($id) {
         Schedule::find($id)->delete();
     }
+
+    public function bookingHistoryPage() {
+        $schedules = Schedule::withTrashed()->get();
+        return view('customer.history', compact('schedules'));
+    }
 }

@@ -168,4 +168,40 @@ class PropertyController extends Controller
         }
         return redirect()->back();
     }
+
+    public function searchPage() {
+        $search = '';
+        $filters = [];
+        $latitude = request()->latitude;
+        $longitude = request()->longitude;
+        if(request()->search) {
+            $search = request()->search;
+        }
+        if(request()->filter) {
+            $filters = request()->filter;
+        }
+
+        $properties = Property::where('name', 'like', "%$search%");
+        if(count($filters) > 0) {
+            $properties = $properties->whereHas('sports', function($query) use ($filters) {
+                $query->whereHas('masterSport', function($query) use($filters) {
+                    $query->whereIn('id', $filters);
+                });
+            })->get();
+        } else {
+            $properties = $properties->get();
+        }
+
+        return view('customer.property.search', compact('properties'));
+    }
+
+    public function detailPage($id) {
+        $property = Property::find($id);
+        return view('customer.property.detail', compact('property'));
+    }
+
+    public function bookingPage($id) {
+        $property = Property::find($id);
+        return view('public.component.schedule', compact('property'));
+    }
 }

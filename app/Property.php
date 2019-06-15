@@ -29,4 +29,8 @@ class Property extends Model
     function facilities() {
         return $this->hasMany(Facility::class);
     }
+
+    function user() {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
 }

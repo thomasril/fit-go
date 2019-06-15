@@ -6,7 +6,7 @@
             <div class="card">
                 <img class="card-img-top" style="width: 100%" src="https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" alt="Card image cap">
                 <div class="card-body">
-                    <h3 class="card-title">Gor Anjay</h3>
+                    <h3 class="card-title">{{$property->name}}</h3>
                 </div>
             </div>
 
@@ -23,9 +23,9 @@
                     </div>
 
                     <div class = "row">
-                        <div class = "col-lg-4">021-562189</div>
-                        <div class = "col-lg-4">Jln Ayam 123</div>
-                        <div class = "col-lg-4">09.00 - 18.00</div>
+                        <div class = "col-lg-4">{{$property->user->phone_number}}</div>
+                        <div class = "col-lg-4">{{$property->address}}</div>
+                        <div class = "col-lg-4">{{$property->open_hour}} - {{$property->close_hour}}</div>
                     </div>
 
                     <div class ="row mt-3">
@@ -34,15 +34,56 @@
                         </div>
 
                         <div class = "col-lg-12">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias earum eveniet ipsam magni maiores nisi optio possimus sed sequi, ut. Culpa fugit iure optio pariatur quibusdam repellat temporibus voluptas voluptatibus!
+                            {{$property->address}}
                         </div>
                     </div>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-12">
+                            <strong>Fasilitas yang Tersedia</strong>
+                        </div>
+                        <div class="col-lg-12">
+                            <ul>
+                                @foreach($property->facilities as $facility)
+                                    <li>{{$facility->name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card mt-5 mb-2">
+                <div class = "card-header">
+                    <h5 class = "card-title">Olahraga yang Tersedia</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Olahraga</strong>
+                        </div>
+                        <div class="col-6">
+                            <strong>Jumlah Lapangan</strong>
+                        </div>
+                    </div>
+                    @foreach($property->sports as $sport)
+                        <div class="row">
+                            <div class="col-6">{{$sport->masterSport->name}}</div>
+                            <div class="col-6">{{$sport->fields()->count()}}</div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 
             <div class="card mt-5 mb-2">
                 <div class = "card-header">
                     <h5 class = "card-title">Jadwal dan Booking</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{{route('bookForCustomer', ['id' => $property->id])}}">
+                        <button class="btn btn-primary">Booking</button>
+                    </a>
                 </div>
             </div>
 
