@@ -13,7 +13,7 @@
 
 Route::get('/', 'PropertyController@home');
 
-Route::get('/search', 'PropertyController@searchPage');
+Route::get('/search', 'PropertyController@searchPage')->name('search');
 
 Route::get('/detail/{id}', 'PropertyController@detailPage')->name('propetyDetailForCustomer');
 Route::get('/detail/{id}/book', 'PropertyController@bookingPage')->name('bookForCustomer');
@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function(){
             Route::group(['middleware' => ['property.has']], function() {
                 Route::get('/update/{id}', 'PropertyController@updatePropertyPage');
                 Route::post('/update', 'PropertyController@updateProperty');
+                Route::get('/', 'PropertyController@indexPage')->name('indexProperty');
             });
 
             Route::group(['middleware' => ['property.not.has']], function() {

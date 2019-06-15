@@ -28,14 +28,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class=" navbar-nav ml-auto">
-            <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('/') }}">Beranda</a>
-            </li>
-            @if(Auth::user())
-                <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+            @if(Auth::check())
+                <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('/') }}">Beranda</a>
                 </li>
+                <li class="nav-item {{ Request::is('search') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('/search') }}">Cari</a>
+                </li>
+                @if(Auth::user()->role->name == 'Owner')
+                    <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item {{ Request::is('property') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/property') }}">Jadwal</a>
+                    </li>
+                @elseif(Auth::user()->role->name == 'Customer')
+                    <li class="nav-item {{ Request::is('book/history') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('/book/history') }}">Histori Pemesanan</a>
+                    </li>
+                @else
+                @endif
             @endif
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @if(Auth::user())

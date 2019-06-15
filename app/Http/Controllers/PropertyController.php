@@ -198,7 +198,13 @@ class PropertyController extends Controller
             $filters = request()->filter;
         }
 
-        $properties = Property::where('name', 'like', "%$search%");
+        $properties = Property::where('name', 'like', "%$search%")->whereDoesntHave('user', function($query) {
+            $query->where('status', 'pending');
+        })->whereHas('user', function($query) {
+            $query->whereHas('subscriptions', function($query) {
+                $query->whereDate('end_date', '>=', Carbon::now());
+            });
+        });
         if(count($filters) > 0 && request()->start) {
             $start = strtotime(request()->start);
             $end = strtotime(request()->end);
