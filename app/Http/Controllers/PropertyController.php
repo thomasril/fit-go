@@ -107,8 +107,9 @@ class PropertyController extends Controller
         return redirect()->back();
     }
 
-    public function updatePropertyPage() {
-        return view('owner.property.update');
+    public function updatePropertyPage($id) {
+        $property = Property::find($id);
+        return view('owner.property.update', ['property' => $property]);
     }
 
     public function updateProperty(Request $request){
@@ -121,6 +122,23 @@ class PropertyController extends Controller
         $property->open_hour = $request->open_hour;
         $property->close_hour = $request->close_hour;
         $property->save();
+
+        $images = $request->file('image');
+        if($images != null) {
+            $property->images()->delete();
+            for ($i = 0; $i < count($images); $i++) {
+                $image = $images[$i];
+                $uid = Uuid::getFactory()->uuid4()->toString();
+                $path = "image/property";
+                $fileName = $uid . '.' . $image->getClientOriginalExtension();
+                $image->move($path, $fileName);
+                $img = new Image();
+                $img->name = $path . "/" . $fileName;
+                $img->property_id = $property->id;
+                $img->save();
+            }
+        }
+
         return redirect()->back();
     }
 

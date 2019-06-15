@@ -50,7 +50,7 @@
                     </table>
 
                     <div class="col-md-12 text-center">
-                        <a href="{{ url('/property/update') }}">
+                        <a href="{{ url('/property/update/'.$property->id) }}">
                             <button type="submit" class="btn btn-primary">Ubah</button>
                         </a>
                     </div>
