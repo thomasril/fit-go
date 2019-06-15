@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\owner\DoesNotHasProperty;
+use App\Http\Middleware\owner\HasProperty;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -63,6 +65,8 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\CheckAdmin::class,
         'owner' => \App\Http\Middleware\CheckOwner::class,
         'customer' => \App\Http\Middleware\CheckCustomer::class,
+        'property.has' => HasProperty::class,
+        'property.not.has' => DoesNotHasProperty::class,
     ];
 
     /**

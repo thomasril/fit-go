@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Schedule;
+use App\Sport;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -81,5 +82,25 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         //
+    }
+
+    public function getScheduleArrayBySportIdAndDateForOwner($sportId, $date) {
+        $sport = Sport::find($sportId);
+        $property = $sport->property;
+        $startTime = strtotime($property->open_hour);
+        $endTime = strtotime($property->close_hour);
+        $data = [];
+        $header = [];
+        $schedule = [];
+        $fieldCount = $sport->fields()->count();
+        for($time = $startTime; $time <= $endTime; $time+=3600) {
+            $header[] = date('H:i', $time) . date('H:i', $time + 3600);
+        }
+        $schedules = $sport->schedules()->where('');
+        for($i = 0; $i < $fieldCount; $i++) {
+            for($time = $startTime; $time <= $endTime; $time+=3600) {
+            }
+        }
+
     }
 }

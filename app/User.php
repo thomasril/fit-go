@@ -36,4 +36,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function property() {
+        return $this->hasOne(Property::class, 'owner_id', 'id');
+    }
 }

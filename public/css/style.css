@@ -45,6 +45,21 @@ h1,h2,h3,h4,h5 {
     color: #aaa;
 }
 
+body {
+    background: #F3F3F3;
+}
+
+
+.profile-picture {
+    background-image: url('../images/default_photo.jpg');
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
 /* Footer */
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 section {
