@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function(){
             Route::group(['prefix' => 'property'], function() {
                 Route::get('/manage', 'PropertyController@index');
                 Route::get('/approve/{id}', 'PropertyController@approve');
-                Route::get('/reject{id}'. 'PropertyController@reject');
+                Route::get('/reject/{id}', 'PropertyController@reject');
                 Route::get('/ban/{id}', 'PropertyController@ban');
             });
 

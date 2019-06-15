@@ -10,6 +10,7 @@ class MasterBankController extends Controller
     public function view()
     {
         $banks = MasterBank::all();
+
         return view('admin.bank.manage', ['banks' => $banks]);
     }
 
@@ -18,6 +19,7 @@ class MasterBankController extends Controller
         $bank = new MasterBank();
         $bank->name = $request->name;
         $bank->save();
+
         return redirect()->back();
     }
 
