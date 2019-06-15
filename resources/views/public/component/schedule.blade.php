@@ -41,17 +41,30 @@
                     <button class="btn btn-primary">Tampilkan</button>
                 </div>
             </form>
-            <div class="card">
+            <div class="card mt-3">
                 <div class="card-body">
                     <table class="table table-bordered" style="font-size:12px;">
                         <thead>
-                        <tr id="schedule-header"></tr>
+                        <tr id="schedule-header">
+                            <td>Pilih tanggal dan jenis olahraga untuk ditampilkan</td>
+                        </tr>
                         </thead>
                         <tbody id="schedule-content">
                         </tbody>
                     </table>
                 </div>
             </div>
+            @if(Auth::user()->role->name == 'Owner')
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <p class="h3">Jadwal</p>
+                        <hr>
+                        <div class="schedule-table-container">
+                            Pilih tanggal dan jenis olahraga untuk ditampilkan
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <div class="modal" role="dialog" id="customer-order-modal">
@@ -153,6 +166,8 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script>
     $(function() {
         $('.filter-schedule-form').submit(function(e) {
@@ -166,6 +181,36 @@
                     $header.html('');
                     $content = $('#schedule-content');
                     $content.html('');
+                    @if(Auth::user()->role->name == 'Owner')
+                    $('.schedule-table-container').html('');
+                        $dataTable = $(`
+<table class="table table-striped table-bordered schedule-table-list">
+    <thead>
+        <tr>
+            <th>Nama Pelanggan</th>
+            <th>Waktu</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>`);
+                        $container = $dataTable.find('tbody');
+                        data.today.forEach(function(val, key) {
+                            console.log(val);
+                            var status = val.deleted_at == null ? 'Disetujui' : 'Dibatalkan';
+                            $container.append(`
+<tr>
+    <td>${val.user.name}</td>
+    <td>${val.time}</td>
+    <td>${status}</td>
+</tr>
+                            `)
+                        });
+                        $('.schedule-table-container').append($dataTable);
+                        $('.schedule-table-list').DataTable();
+                    @endif
                     if(data.schedule.length <= 0) {
                         $header.append('<th>Tidak perlu booking</th>')
                         return;
@@ -177,7 +222,6 @@
                         $header.append(`<th>${val}</th>`);
                     });
                     var schedule = data.schedule;
-
                     schedule.forEach(function(val, key) {
                         $tr = $scheduleTemplate.clone();
                         $tr.append(`<td>${key+1}</td>`);

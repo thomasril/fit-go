@@ -38,7 +38,7 @@ class PropertiesTableSeeder extends Seeder
             'description'    => '',
             'address'        => 'Jl. Kedoya Raya No.35, RT.6/RW.3, Kedoya Sel., Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11520',
             'latitude'       => '-6.208428',
-            'longitude'      => ',106.7824432',
+            'longitude'      => '106.7824432',
             'open_hour'      => '08:00:00',
             'close_hour'     => '23:00:00',
             'status'         => 'Pending',

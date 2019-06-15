@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('customer.home');
-});
+Route::get('/', 'PropertyController@home');
 
 Route::get('/search', 'PropertyController@searchPage');
 
@@ -67,7 +65,8 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::group(['prefix' => 'property'], function() {
             Route::group(['middleware' => ['property.has']], function() {
-                Route::get('/update', 'PropertyController@updatePropertyPage');
+                Route::get('/update/{id}', 'PropertyController@updatePropertyPage');
+                Route::post('/update', 'PropertyController@updateProperty');
             });
 
             Route::group(['middleware' => ['property.not.has']], function() {
