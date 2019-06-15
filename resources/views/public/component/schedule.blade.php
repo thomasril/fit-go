@@ -162,16 +162,22 @@
                 url: '{{route('api::schedule')}}?' + $(this).serialize(),
                 type: 'get',
                 success: function(data) {
-                    var header = data.header;
                     $header = $('#schedule-header');
                     $header.html('');
+                    $content = $('#schedule-content');
+                    $content.html('');
+                    if(data.schedule.length <= 0) {
+                        $header.append('<th>Tidak perlu booking</th>')
+                        return;
+                    }
+                    var header = data.header;
+
                     $header.append(`<th>No.</th>`);
                     header.forEach(function(val, key) {
                         $header.append(`<th>${val}</th>`);
                     });
                     var schedule = data.schedule;
-                    $content = $('#schedule-content');
-                    $content.html('');
+
                     schedule.forEach(function(val, key) {
                         $tr = $scheduleTemplate.clone();
                         $tr.append(`<td>${key+1}</td>`);

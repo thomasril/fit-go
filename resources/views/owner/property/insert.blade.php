@@ -92,18 +92,24 @@
                 <div class="form-row">
                     <div class="col-6">
                         <label for="">Jenis Olahraga</label>
-                        <select name="sport[]" class="form-control">
+                        <select name="sport[]" class="form-control sport-type">
                             @foreach(\App\MasterSport::all() as $masterSport)
-                                <option value="{{$masterSport->id}}">{{$masterSport->name}}</option>
+                                <option value="{{$masterSport->id}}" data-bookable="{{$masterSport->bookable}}">{{$masterSport->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-4">
                         <label for="">Jumlah Lapangan</label>
-                        <input type="number" name="field[]" class="form-control">
+                        <input type="number" name="field[]" class="form-control sport-field" value="0" disabled>
                     </div>
                     <div class="col-2">
                         <div class="btn btn-danger delete-sport-button" style="margin-top: 40px;">Hapus</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-6">
+                        <label>Deposit</label>
+                        <input type="number" value="0" name="price[]" class="form-control">
                     </div>
                 </div>
                 <br>
@@ -161,6 +167,22 @@
             $sportTemplate = $($('#sport-template').html());
             $sportTemplate.find('.delete-sport-button').click(function(e) {
                 $(this).closest('.sport').remove();
+            });
+            $sportTemplate.find('.sport-type').change(function(e) {
+                var bookable = $(this).find(':selected').data('bookable');
+                $root = $(this).parent().parent();
+                $hiddenField = $root.find('.sport-field-hidden');
+                if($hiddenField != null) {
+                    $hiddenField.remove();
+                }
+                if(!bookable) {
+                    $field = $(this).parent().parent().find('.sport-field');
+                    $field.prop('disabled', true);
+                    $root.append(`<input type="hidden" class="sport-field-hidden" name="field[]" value="0"/>`);
+                } else {
+                    $field = $(this).parent().parent().find('.sport-field');
+                    $field.prop('disabled', false);
+                }
             });
             $priceTemplate = $($('#price-template').html());
             $priceTemplate.find('.delete-price-btn').click(function(e) {

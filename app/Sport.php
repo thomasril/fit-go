@@ -17,4 +17,8 @@ class Sport extends Model
     function masterSport() {
         return $this->belongsTo(MasterSport::class);
     }
+
+    function prices() {
+        return $this->hasMany(Price::class);
+    }
 }

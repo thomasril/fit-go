@@ -17,6 +17,7 @@ class CreateSportsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('property_id');
             $table->unsignedBigInteger('master_sport_id');
+            $table->integer('price')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

@@ -56,22 +56,63 @@
 
             <div class="card mt-5 mb-2">
                 <div class = "card-header">
+                    <h5 class = "card-title">Lokasi</h5>
+                </div>
+                <div class="card-body">
+                    <div style="height: 200px">
+                        @include('map.view-one', [
+                            'data' => $property
+                        ])
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-5 mb-2">
+                <div class = "card-header">
                     <h5 class = "card-title">Olahraga yang Tersedia</h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <strong>Olahraga</strong>
+                    @foreach($property->sports as $sport)
+                    <div class ="row mt-3">
+                        <div class = "col-lg-12">
+                            <strong>{{$sport->masterSport->name}}</strong>
                         </div>
-                        <div class="col-6">
-                            <strong>Jumlah Lapangan</strong>
+                        @if($sport->masterSport->bookable)
+                        <div class = "col-lg-12">
+                            <strong>Jumlah Lapangan: </strong> {{$sport->fields()->count()}}
+                        </div>
+                        <div class="col-lg-12">
+                            @if($sport->price > 0)
+                            <strong>Deposit: </strong> {{$sport->price}}
+                            @else
+                            <strong>Tidak ada deposit</strong>
+                            @endif
+                        </div>
+                        @else
+                            <div class="col-lg-12">
+                                <strong>Tidak Perlu Booking</strong>
+                            </div>
+                        @endif
+                        <div class="col-lg-12">
+                            Harga:
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th class="col-6">Harga</th>
+                                    <th class="col-6">Satuan</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($sport->prices as $price)
+                                <tr>
+                                    <td>{{$price->number}}</td>
+                                    <td>per {{$price->name}}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    @foreach($property->sports as $sport)
-                        <div class="row">
-                            <div class="col-6">{{$sport->masterSport->name}}</div>
-                            <div class="col-6">{{$sport->fields()->count()}}</div>
-                        </div>
                     @endforeach
                 </div>
             </div>
