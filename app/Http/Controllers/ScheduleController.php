@@ -84,8 +84,10 @@ class ScheduleController extends Controller
         //
     }
 
-    public function getScheduleArrayBySportIdAndDateForOwner($sportId, $date) {
-        $sport = Sport::find($sportId);
+    public function getScheduleArrayBySportIdAndDate() {
+        $sportid = request()->sportid;
+        $date = request()->date;
+        $sport = Sport::find($sportid);
         $property = $sport->property;
         $startTime = strtotime($property->open_hour);
         $endTime = strtotime($property->close_hour);
@@ -94,13 +96,25 @@ class ScheduleController extends Controller
         $schedule = [];
         $fieldCount = $sport->fields()->count();
         for($time = $startTime; $time <= $endTime; $time+=3600) {
-            $header[] = date('H:i', $time) . date('H:i', $time + 3600);
+            $header[] = date('H:i', $time) . ' - ' . date('H:i', $time + 3600);
         }
-        $schedules = $sport->schedules()->where('');
-        for($i = 0; $i < $fieldCount; $i++) {
+
+        foreach($sport->fields as $i=>$field) {
+            $schedules = $field->schedules()->whereDate('date', $date)->get();
             for($time = $startTime; $time <= $endTime; $time+=3600) {
+                $data = $schedules->where('time', date('H:i:s', $time))->first();
+                if($data != null) {
+                    $schedule[$i][] = [
+                        'booked' => true
+                    ];
+                } else {
+                    $schedule[$i][] = [
+                        'booked' => false
+                    ];
+                }
             }
         }
+        return compact('header', 'schedule');
 
     }
 }

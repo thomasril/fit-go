@@ -13,4 +13,8 @@ class Sport extends Model
     function fields() {
         return $this->hasMany(Field::class);
     }
+
+    function masterSport() {
+        return $this->belongsTo(MasterSport::class);
+    }
 }
