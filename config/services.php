@@ -45,8 +45,8 @@ return [
     ],
 
     'nexmo' => [
-        'key' => env('a17ed735'),
-        'secret' => env('UvsI4aJT6WUlqMCx'),
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
         'sms_from' => 'Fitgo',
     ],
 
