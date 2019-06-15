@@ -100,7 +100,6 @@
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 <script>
-    @yield('custom-js')
-
+    @yield('script')
 </script>
 </html>

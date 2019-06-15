@@ -16,11 +16,11 @@ Route::get('/', function () {
 });
 
 Route::get('/search', function () {
-    return view('customer.product.search');
+    return view('customer.property.search');
 });
 
 Route::get('/detail', function () {
-    return view('customer.product.detail');
+    return view('customer.property.detail');
 });
 
 Route::group(['middleware' => ['guest']], function(){
