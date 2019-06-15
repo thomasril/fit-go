@@ -94,12 +94,12 @@ class ScheduleController extends Controller
         $endTime = strtotime($property->close_hour);
         $header = [];
         $schedule = [];
-        for($time = $startTime; $time <= $endTime; $time+=3600) {
+        for($time = $startTime; $time < $endTime; $time+=3600) {
             $header[] = date('H:i', $time) . ' - ' . date('H:i', $time + 3600);
         }
         foreach($sport->fields as $i=>$field) {
             $schedules = $field->schedules()->whereDate('date', $date)->get();
-            for($time = $startTime; $time <= $endTime; $time+=3600) {
+            for($time = $startTime; $time < $endTime; $time+=3600) {
                 $data = $schedules->where('time', date('H:i:s', $time))->first();
                 if($data != null) {
                     $schedule[$i][] = [
@@ -115,7 +115,8 @@ class ScheduleController extends Controller
                 }
             }
         }
-        return compact('header', 'schedule', 'date');
+        $today = Schedule::where('date', $date)->withTrashed()->with('user')->get();
+        return compact('header', 'schedule', 'date', 'today');
     }
 
     public function insertSchedule(Request $request) {
@@ -143,7 +144,7 @@ class ScheduleController extends Controller
     }
 
     public function bookingHistoryPage() {
-        $schedules = Schedule::withTrashed()->get();
+        $schedules = Schedule::withTrashed()->orderBy('time', 'desc')->orderBy('date', 'desc')->get();
         return view('customer.history', compact('schedules'));
     }
 }

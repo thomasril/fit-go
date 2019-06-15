@@ -12,4 +12,8 @@ class Schedule extends Model
     function field() {
         return $this->belongsTo(Field::class);
     }
+
+    function user() {
+        return $this->belongsTo(User::class, 'customer_id', 'id');
+    }
 }
