@@ -11,13 +11,17 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('bank_id');
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
             $table->string('method');
-            $table->string('bank');
             $table->timestamps();
             $table->softDeletes();
 
             // Relationship
             $table->foreign('property_id')->references('id')->on('properties')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('bank_id')->references('id')->on('master_banks')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 

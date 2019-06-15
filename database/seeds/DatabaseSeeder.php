@@ -9,7 +9,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             UsersTableSeeder::class,
-            MasterSportsTableSeeder::class
+            MasterSportsTableSeeder::class,
+            MasterBanksTableSeeder::class,
+            PropertiesTableSeeder::class,
+            SportsTableSeeder::class,
+            FieldsTableSeeder::class,
+            PaymentsTableSeeder::class,
         ]);
     }
 }
