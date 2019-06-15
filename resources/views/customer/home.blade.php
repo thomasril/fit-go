@@ -6,11 +6,13 @@
         <div class="container">
             <h1 class="display-4 text-center mt-5 text-white">Cari Tempat Olahraga?</h1>
             <p class="text-center text-white">Dapatkan info tempat olahraga murah, bagus dan berkualitas hanya di Fitgo!</p>
+            <form action="{{route('search')}}" method="get">
+                <div class="form-group has-search">
+                    <i class="fa fa-search form-control-feedback"></i>
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                </div>
+            </form>
 
-            <div class="form-group has-search">
-                <i class="fa fa-search form-control-feedback"></i>
-                <input type="text" class="form-control" placeholder="Search">
-            </div>
         </div>
     </div>
 @endsection

@@ -208,6 +208,7 @@
                                 @if(count(Auth::user()->subscriptions) == 0 || Auth::user()->subscriptions()->orderBy('end_date', 'desc')->first()->end_date < date('Y-m-d'))
                                     Berlangganan dengan harga perbulan hanya Rp. 99.999,-
                                     <form method="post" action="{{ url('/subscription') }}" class="row mt-4">
+                                        @csrf
                                         <div class="form-group col-lg-10">
                                             <input type="number" class="form-control" name="month" min="1" value="1">
                                         </div>
