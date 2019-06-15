@@ -17,6 +17,7 @@ class CreateSchedulesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('field_id');
+            $table->string('name')->nullable();
             $table->time('time');
             $table->date('date');
             $table->timestamps();

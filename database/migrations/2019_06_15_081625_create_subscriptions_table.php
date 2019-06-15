@@ -15,10 +15,10 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('owner_id');
+            $table->unsignedBigInteger('owner_id');
             $table->integer('price');
-            $table->timestamps('start_date');
-            $table->timestamps('end_date');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
             $table->softDeletes();
         });
