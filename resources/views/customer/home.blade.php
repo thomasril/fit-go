@@ -127,6 +127,7 @@
             // Transition effect for navbar
 
             $('nav').toggleClass('fixed-top');
+            $('nav').removeClass('bg-primary');
 
             $(window).scroll(function() {
                 // checks if window is scrolled more than 500px, adds/removes solid class
