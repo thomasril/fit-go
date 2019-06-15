@@ -34,7 +34,7 @@
                             <label for="">Konfirmasi Kata Sandi</label>
                             <input type="password" name="confirm" class="form-control" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <button class="btn btn-primary">Daftar</button>
                         </div>
                     </form>

@@ -44,4 +44,8 @@ class User extends Authenticatable
     function role() {
         return $this->belongsTo(Role::class);
     }
+
+    function subscriptions() {
+        return $this->hasMany(Subscription::class, 'owner_id', 'id');
+    }
 }

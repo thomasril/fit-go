@@ -28,22 +28,30 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class=" navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('/') }}">Beranda</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Histori</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Chat</a>
-            </li>
+            @if(Auth::user())
+                <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                </li>
+            @endif
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ Auth::user()->name }}
+                    @if(Auth::user())
+                        {{ Auth::user()->name }}
+                    @else
+                        Guest
+                    @endif
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Halaman Profi</a>
-                    <a class="dropdown-item" href="#">Keluar</a>
+                    @if(Auth::user())
+                        <a class="dropdown-item" href="{{ url('/profile') }}">Data Diri</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Keluar</a>
+                    @else
+                        <a class="dropdown-item" href="{{ url('/login') }}">Masuk</a>
+                        <a class="dropdown-item" href="{{ url('/register') }}">Daftar</a>
+                    @endif
                 </div>
             </li>
         </ul>
@@ -56,7 +64,7 @@
     @yield('container')
 </div>
 
-<section id="footer">
+<section id="footer" style="{{ Request::is('register') ?  "margin-top: 5%;" : ''}}">
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
             <div class="col-xs-12 col-sm-6 col-md-6">

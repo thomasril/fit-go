@@ -7,79 +7,33 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function insert(Request $request)
     {
-        //
+        $payment = new Payment();
+        $payment->property_id = $request->property_id;
+        $payment->bank_id = $request->bank_id == null ? 1 : $request->bank_id;
+        $payment->account_name = $request->account_name;
+        $payment->account_number = $request->account_number;
+        $payment->method = $request->pay_method;
+        $payment->save();
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function update(Request $request)
     {
-        //
+        $payment = Payment::find($request->id);
+        $payment->bank_id = $request->bank_id == null ? 1 : $request->bank_id;
+        $payment->account_name = $request->account_name;
+        $payment->account_number = $request->account_number;
+        $payment->method = $request->pay_method;
+        $payment->save();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        $payment = Payment::find($id);
+        $payment->delete();
+        return redirect()->back();
     }
 }

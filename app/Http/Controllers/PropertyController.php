@@ -5,89 +5,27 @@ namespace App\Http\Controllers;
 use App\Facility;
 use App\Field;
 use App\Image;
+use App\MasterBank;
 use App\Price;
 use App\Property;
 use App\Sport;
+use App\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Ramsey\Uuid\Uuid;
 
 class PropertyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return view('admin.property.manage');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Property $property)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Property $property)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Property $property)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Property  $property
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Property $property)
-    {
-        //
+    public function dashboard(){
+        $property = Property::where('owner_id', Auth::user()->id)->first();
+        $banks = MasterBank::all();
+        return view('owner.dashboard', ['property' => $property, 'banks' => $banks]);
     }
 
     public function indexPage() {
@@ -166,6 +104,52 @@ class PropertyController extends Controller
             $f->name = $facility;
             $f->save();
         }
+        return redirect()->back();
+    }
+
+    public function updatePropertyPage() {
+        return view('owner.property.update');
+    }
+
+    public function updateProperty(Request $request){
+        $property = Property::find($request->id);
+        $property->name = $request->name;
+        $property->description = $request->description;
+        $property->latitude = $request->latitude;
+        $property->longitude = $request->longitude;
+        $property->address = $request->address;
+        $property->open_hour = $request->open_hour;
+        $property->close_hour = $request->close_hour;
+        $property->save();
+        return redirect()->back();
+    }
+
+    public function approve($id){
+        $property = Property::find($id);
+        $property->status = 'Approved';
+        $property->save();
+
+        $now = date('Y-m-d');
+        $subscription = new Subscription();
+        $subscription->owner_id = $property->owner_id;
+        $subscription->price = 0;
+        $subscription->start_date = $now;
+        $subscription->end_date = date('Y-m-d', strtotime('+1 month', strtotime($now)));
+        $subscription->save();
+        return redirect()->back();
+    }
+
+    public function reject($id){
+        $property = Property::find($id);
+        $property->status = 'Rejected';
+        $property->save();
+        return redirect()->back();
+    }
+
+    public function ban($id){
+        $property = Property::find($id);
+        $property->status = 'Banned';
+        $property->save();
         return redirect()->back();
     }
 }

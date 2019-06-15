@@ -15,7 +15,7 @@ class PropertiesTableSeeder extends Seeder
             'longitude'      => '106.7706041',
             'open_hour'      => '06:00:00',
             'close_hour'     => '23:00:00',
-            'status'         => 'Accepted',
+            'status'         => 'Approved',
             'created_at'     => '2019-06-15 12:00:00',
         ]);
 

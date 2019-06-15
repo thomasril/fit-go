@@ -69,7 +69,7 @@
             </div>
             <br>
             <div class="form-group">
-                <button class="btn btn-primary">Insert</button>
+                <button class="btn btn-primary">Tambah</button>
             </div>
         </div>
     </form>

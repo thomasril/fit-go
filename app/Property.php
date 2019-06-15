@@ -18,6 +18,7 @@ class Property extends Model
         'status'
     ];
 
+    // Relationship
     function images() {
         return $this->hasMany(Image::class);
     }
@@ -28,5 +29,9 @@ class Property extends Model
 
     function facilities() {
         return $this->hasMany(Facility::class);
+    }
+
+    function payments(){
+        return $this->hasMany(Payment::class);
     }
 }

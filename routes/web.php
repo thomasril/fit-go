@@ -23,10 +23,6 @@ Route::get('/detail', function () {
     return view('customer.property.detail');
 });
 
-Route::get('/dashboard', function () {
-    return view('owner.dashboard');
-});
-
 Route::get('/send', 'NotificationController@sendSMSNotification');
 
 Route::get('/reminder', function () {
@@ -46,29 +42,46 @@ Route::group(['middleware' => ['auth']], function(){
         Route::group(['prefix' => 'admin'], function(){
             Route::group(['prefix' => 'property'], function() {
                 Route::get('/manage', 'PropertyController@index');
-                Route::post('/approve', 'PropertyController@approve');
-                Route::post('/reject'. 'PropertyController@reject');
-                Route::post('/ban', 'PropertyController@ban');
+                Route::get('/approve/{id}', 'PropertyController@approve');
+                Route::get('/reject{id}'. 'PropertyController@reject');
+                Route::get('/ban/{id}', 'PropertyController@ban');
             });
 
             Route::group(['prefix' => 'sport'], function() {
-                Route::get('/manage', 'SportController@index');
-                Route::post('/insert', 'SportController@store');
-                Route::post('/update', 'SportController@update');
-                Route::get('/delete/{id}', 'SportController@destroy');
+                Route::get('/manage', 'MasterSportController@view');
+                Route::post('/insert', 'MasterSportController@insert');
+                Route::post('/update', 'MasterSportController@update');
+                Route::get('/delete/{id}', 'MasterSportController@delete');
+            });
+
+            Route::group(['prefix' => 'bank'], function() {
+                Route::get('/manage', 'MasterBankController@view');
+                Route::post('/insert', 'MasterBankController@insert');
+                Route::post('/update', 'MasterBankController@update');
+                Route::get('/delete/{id}', 'MasterBankController@delete');
             });
         });
     });
 
     Route::group(['middleware' => ['owner']], function(){
+        Route::get('/dashboard', 'PropertyController@dashboard');
+        Route::post('/subscription', 'SubscriptionController@subscription');
+
         Route::group(['prefix' => 'property'], function() {
             Route::group(['middleware' => ['property.has']], function() {
-                Route::get('/', 'PropertyController@indexPage')->name('indexProperty');
+                Route::get('/update', 'PropertyController@updatePropertyPage');
             });
+
             Route::group(['middleware' => ['property.not.has']], function() {
                 Route::get('/insert', 'PropertyController@insertPropertyPage');
                 Route::post('/insert', 'PropertyController@insertProperty')->name('insertProperty');
             });
+        });
+
+        Route::group(['prefix' => 'payment'], function () {
+            Route::post('/insert', 'PaymentController@insert');
+            Route::post('/update', 'PaymentController@update');
+            Route::get('/delete/{id}', 'PaymentController@delete');
         });
     });
 

@@ -2,96 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\MasterSport;
 use App\Sport;
-use Illuminate\Http\Request;
 
 class SportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $sport = MasterSport::all();
-        return view('admin.sport.manage', ['sports' => $sport]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $sport = new MasterSport();
-        $sport->name = $request->name;
-        $sport->bookable = $request->bookable;
-        $sport->save();
-        return redirect('/admin/sport/manage');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Sport  $sport
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Sport $sport)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Sport  $sport
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Sport $sport)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sport  $sport
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        $sport = MasterSport::find($request->id);
-        $sport->name = $request->name;
-        $sport->bookable = $request->bookable;
-        $sport->save();
-        return redirect('/admin/sport/manage');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Sport  $sport
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $sport = MasterSport::find($id);
-        $sport->delete();
-        return redirect('/admin/sport/manage');
-    }
 }

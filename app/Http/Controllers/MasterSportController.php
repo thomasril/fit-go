@@ -7,79 +7,34 @@ use Illuminate\Http\Request;
 
 class MasterSportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function view()
     {
-        //
+        $sport = MasterSport::all();
+        return view('admin.sport.manage', ['sports' => $sport]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        $sport = new MasterSport();
+        $sport->name = $request->name;
+        $sport->bookable = $request->bookable;
+        $sport->save();
+        return redirect('/admin/sport/manage');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $sport = MasterSport::find($request->id);
+        $sport->name = $request->name;
+        $sport->bookable = $request->bookable;
+        $sport->save();
+        return redirect('/admin/sport/manage');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\MasterSport  $masterSport
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MasterSport $masterSport)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\MasterSport  $masterSport
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MasterSport $masterSport)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MasterSport  $masterSport
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MasterSport $masterSport)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\MasterSport  $masterSport
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MasterSport $masterSport)
-    {
-        //
+        $sport = MasterSport::find($id);
+        $sport->delete();
+        return redirect('/admin/sport/manage');
     }
 }

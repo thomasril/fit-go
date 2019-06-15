@@ -7,79 +7,32 @@ use Illuminate\Http\Request;
 
 class MasterBankController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function view()
     {
-        //
+        $banks = MasterBank::all();
+        return view('admin.bank.manage', ['banks' => $banks]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function insert(Request $request)
     {
-        //
+        $bank = new MasterBank();
+        $bank->name = $request->name;
+        $bank->save();
+        return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function update(Request $request)
     {
-        //
+        $bank = MasterBank::find($request->id);
+        $bank->name = $request->name;
+        $bank->save();
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\MasterBank  $masterBank
-     * @return \Illuminate\Http\Response
-     */
-    public function show(MasterBank $masterBank)
+    public function delete($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\MasterBank  $masterBank
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(MasterBank $masterBank)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MasterBank  $masterBank
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MasterBank $masterBank)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\MasterBank  $masterBank
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(MasterBank $masterBank)
-    {
-        //
+        $bank = MasterBank::find($id);
+        $bank->delete();
+        return redirect()->back();
     }
 }
