@@ -197,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            @if($property->status != "Pending")
+            @if($property->status == "Approved")
                 <div class = "card mt-3">
                     <div class = "card-header">
                         <h5 class="card-title">Berlangganan</h5>
