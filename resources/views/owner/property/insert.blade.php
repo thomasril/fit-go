@@ -105,6 +105,7 @@
                     <div class="col-2">
                         <div class="btn btn-danger delete-sport-button" style="margin-top: 40px;">Hapus</div>
                     </div>
+                    <input type="hidden" name="field[]" value="0">
                 </div>
                 <div class="form-row">
                     <div class="col-6">

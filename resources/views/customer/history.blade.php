@@ -13,6 +13,10 @@
                             <strong class="h5">{{$schedule->field->sport->property->name}}</strong>
                         </div>
                         <div class="row">
+                            <div class="col-2">Olahraga:</div>
+                            <div class="col-10">{{$schedule->field->sport->masterSport->name}}</div>
+                        </div>
+                        <div class="row">
                             <div class="col-2">Tanggal:</div>
                             <div class="col-10">{{$schedule->date}}</div>
                         </div>
