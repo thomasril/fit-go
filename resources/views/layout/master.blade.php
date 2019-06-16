@@ -133,6 +133,19 @@
     </div>
 </section>
 
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position:fixed;right: 10px;bottom: 10px;opacity:1;z-index: 10;">
+    <div class="toast-header">
+        <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+             focusable="false" role="img">
+            <rect fill="#21ada8" width="100%" height="100%" /></svg>
+        <strong class="mr-auto">Notification Booking</strong>
+        <button type="button" class="ml-2 mb-1 close toast-close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body"></div>
+</div>
+
 </body>
 
 <script src="{{asset('js/jquery-latest.min.js')}}"></script>
@@ -140,6 +153,14 @@
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 <script>
+    $(document).ready(function(){
+        $('.toast').hide();
+
+        $('.toast-close').click(function(){
+            $('.toast').hide();
+        });
+    });
+
     var pusher = new Pusher('176eae996f1d611a171c', {
         cluster: 'ap1',
         forceTLS: true
@@ -148,7 +169,11 @@
     var channel = pusher.subscribe('reminder-channel');
 
     channel.bind('reminder-event', function(data) {
-        alert('Muncul dong');
+        $('.toast-body').text(data.message);
+        setTimeout(function(){
+            $('.toast').show();
+        }, 3000)
+        $('.toast').hide();
     });
 </script>
 @yield('script')

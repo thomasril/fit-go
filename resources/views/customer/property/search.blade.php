@@ -74,7 +74,7 @@
                         <p class="card-title">
                             <div class="row">
                                 <div class="col-md-7">
-                                    Nama Property
+                                    {{ $property->name }}
                                 </div>
                                 <div class="col-md-5">
                                         <span class="star mt-1">

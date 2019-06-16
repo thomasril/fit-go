@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Schedule;
 use Illuminate\Console\Command;
+use Pusher\Pusher;
 
 class ReminderBooking extends Command
 {
@@ -55,6 +56,21 @@ class ReminderBooking extends Command
                 'from' => 'Fitgo',
                 'text' => $value,
             ]);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+
+            $pusher = new Pusher(
+                config('broadcasting.connections.pusher.key'),
+                config('broadcasting.connections.pusher.secret'),
+                config('broadcasting.connections.pusher.app_id'),
+                $options
+            );
+
+            $data['message'] = $value;
+            $pusher->trigger('reminder-channel', 'reminder-event', $data);
         }
 
         $this->info('Reminder SMS send to user');

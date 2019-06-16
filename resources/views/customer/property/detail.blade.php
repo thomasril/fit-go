@@ -109,7 +109,7 @@
             @endif
 
             @if(Auth::check())
-                @if(!Auth::user())
+                @if(!Auth::user()->reviews)
                     <div class="card mt-5 mb-2">
                         <form method="post" action="{{ url('/review')  }}">
                             @csrf

@@ -6,85 +6,10 @@ use App\Schedule;
 use App\Sport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Pusher\Pusher;
 
 class ScheduleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Schedule $schedule)
-    {
-        //
-    }
-
     public function getScheduleArrayBySportIdAndDate() {
         $sportid = request()->sportid;
         $date = request()->date;
@@ -136,6 +61,28 @@ class ScheduleController extends Controller
             $schedule->field_id = $request->field;
             $schedule->name = Auth::user()->name;
             $schedule->save();
+
+            $nexmo = app('Nexmo\Client');
+            $nexmo->message()->send([
+                'to' => $schedule->field->sport->property->user->phone_number,
+                'from' => 'Fitgo',
+                'text' => "$schedule->name telah memesan tempat olahraga ". $schedule->field->sport->masterSport->name." pada tanggal ". $schedule->date. " di jam ". $schedule->time,
+            ]);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+
+            $pusher = new Pusher(
+                config('broadcasting.connections.pusher.key'),
+                config('broadcasting.connections.pusher.secret'),
+                config('broadcasting.connections.pusher.app_id'),
+                $options
+            );
+
+            $data['message'] = "$schedule->name telah memesan tempat olahraga ". $schedule->field->sport->masterSport->name." pada tanggal ". $schedule->date. " di jam ". $schedule->time;
+            $pusher->trigger('reminder-channel', 'reminder-event', $data);
         }
     }
 
