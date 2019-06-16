@@ -93,28 +93,20 @@
     @yield('container')
 </div>
 
-<section id="footer">
+<section id="footer" class = "mt-3">
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
-            <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <h5>Quick links</h5>
-                <ul class="list-unstyled quick-links">
-                    <li><a href="/"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                    <li><a href="/login"><i class="fa fa-angle-double-right"></i>Login</a></li>
-                    <li><a href="/register"><i class="fa fa-angle-double-right"></i>Register</a></li>
-                    <li><a href="/property"><i class="fa fa-angle-double-right"></i>Property</a></li>
-                </ul>
+                <div class = "row">
+                    <div class = "col-lg-3"><a href = "/">Beranda</a></div>
+                    <div class = "col-lg-3"><a href = "/search">Pencarian</a></div>
+                    <div class = "col-lg-3"><a href = "/property">Jadwal</a></div>
+                    <div class = "col-lg-3"><a href = "/">Home</a></div>
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6">
-                <h5>Quick links</h5>
-                <ul class="list-unstyled quick-links">
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                    <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-                </ul>
-            </div>
-
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <ul class="list-unstyled list-inline social text-center">
                     <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>

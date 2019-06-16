@@ -4,7 +4,7 @@
     <div class = "row mb-5">
         <div class = "col-lg-8">
             <div class="card">
-                <img class="card-img-top" style="width: 100%" src="https://asset.kompas.com/crop/0x39:1000x705/750x500/data/photo/2019/02/01/666564806.jpeg" alt="Card image cap">
+                <img class="card-img-top" style="width: 100%" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-9">
@@ -41,19 +41,13 @@
 
                 <div class="card-body">
                     <div class = "row">
-                        @if(Auth::check())
-                            <div class = "col-lg-4"><strong>Nomor Telepon</strong></div>
-                        @endif
-                        <div class = "col-lg-4"><strong>Alamat</strong></div>
-                        <div class = "col-lg-4"><strong>Jam Buka</strong></div>
+                        <div class = "col-lg-6"><strong>Alamat</strong></div>
+                        <div class = "col-lg-6"><strong>Jam Buka</strong></div>
                     </div>
 
                     <div class = "row">
-                        @if(Auth::check())
-                            <div class = "col-lg-4">{{$property->user->phone_number}}</div>
-                        @endif
-                        <div class = "col-lg-4">{{$property->address}}</div>
-                        <div class = "col-lg-4">{{$property->open_hour}} - {{$property->close_hour}}</div>
+                        <div class = "col-lg-6">{{$property->address}}</div>
+                        <div class = "col-lg-6">{{$property->open_hour}} - {{$property->close_hour}}</div>
                     </div>
 
                     <div class ="row mt-3">
@@ -120,7 +114,7 @@
                                 <input type="hidden" name="property_id" value="{{ $property->id }}">
                                 <div class="col-md-10">
                                     <label for="">Ulasan</label>
-                                    <input type = "text" class = "form-control" name="description" placeholder="Tulis ulasan untuk Gor Anjay" required>
+                                    <input type = "text" class = "form-control" name="description" placeholder="Tulis ulasan untuk {{$property->name}}" required>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="">Penilaian</label>
@@ -135,7 +129,6 @@
                 @endif
             @endif
 
-            @if(Auth::check())
                 <div class="card mt-5 mb-2">
                     <div class = "card-header">
                         <h5 class = "card-title">Ulasan</h5>
@@ -160,7 +153,6 @@
                         </div>
                     @endforeach
                 </div>
-            @endif
         </div>
 
         <div class="col-lg-4">
@@ -202,7 +194,7 @@
                                     <tbody>
                                     @foreach($sport->prices as $price)
                                         <tr>
-                                            <td>{{$price->number}}</td>
+                                            <td>Rp. {{number_format($price->number)}}</td>
                                             <td>per {{$price->name}}</td>
                                         </tr>
                                     @endforeach

@@ -103,16 +103,16 @@
                                                                 <br>
                                                                 <div class="row">
                                                                     <div class="col-md-6">
-                                                                        <input type="radio" name="pay_method" value="Cash" @if($payment->method == "Cash") checked @endif onclick="return cash()"> Tunai
+                                                                        <input type="radio" name="pay_method" value="Cash" @if($payment->method == "Cash") checked @endif onclick="return cashEdit()"> Tunai
                                                                     </div>
                                                                     <div class="col-md-6">
-                                                                        <input type="radio" name="pay_method" value="Transfer" @if($payment->method == "Transfer") checked @endif onclick="return transfer()"> Transfer
+                                                                        <input type="radio" name="pay_method" value="Transfer" @if($payment->method == "Transfer") checked @endif onclick="return transferEdit()"> Transfer
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class = "form-group">
                                                                 <label for="">Bank</label>
-                                                                <select name="bank_id" class="form-control" id="bank" @if($payment->method == "Cash") disabled @endif>
+                                                                <select name="bank_id" class="form-control" id="bank_edit" @if($payment->method == "Cash") disabled @endif>
                                                                     @foreach($banks as $bank)
                                                                         <option value="{{ $bank->id }}" @if($payment->bank_id == $bank->id) selected @endif>{{ $bank->name }}</option>
                                                                     @endforeach
@@ -120,11 +120,11 @@
                                                             </div>
                                                             <div class = "form-group">
                                                                 <label for="">Nama Akun Bank</label>
-                                                                <input type="text" class="form-control" name="account_name" id="account_name" @if($payment->method == "Cash") disabled @endif value="{{ $payment->account_name == null ? '' : $payment->account_name}}">
+                                                                <input type="text" class="form-control" name="account_name" id="account_name_edit" @if($payment->method == "Cash") disabled @endif value="{{ $payment->account_name == null ? '' : $payment->account_name}}">
                                                             </div>
                                                             <div class = "form-group">
                                                                 <label for="">Nomor Akun Bank</label>
-                                                                <input type="text" class="form-control" name="account_number" id="account_number" @if($payment->method == "Cash") disabled @endif value="{{ $payment->account_number == null ? '' : $payment->account_number  }}">
+                                                                <input type="text" class="form-control" name="account_number" id="account_number_edit" @if($payment->method == "Cash") disabled @endif value="{{ $payment->account_number == null ? '' : $payment->account_number  }}">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -240,10 +240,25 @@
             $('#account_number').prop( "disabled", true );
         }
 
+        function cashEdit(){
+            $('#bank_edit').val('1');
+            $('#account_name_edit').val('');
+            $('#account_number_edit').val('');
+            $('#bank_edit').prop( "disabled", true );
+            $('#account_name_edit').prop( "disabled", true );
+            $('#account_number_edit').prop( "disabled", true );
+        }
+
         function transfer(){
             $('#bank').prop( "disabled", false );
             $('#account_name').prop( "disabled", false );
             $('#account_number').prop( "disabled", false );
+        }
+
+        function transferEdit(){
+            $('#bank_edit').prop( "disabled", false );
+            $('#account_name_edit').prop( "disabled", false );
+            $('#account_number_edit').prop( "disabled", false );
         }
     </script>
 @endsection

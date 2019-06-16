@@ -21,13 +21,13 @@
 @section('container')
     <div class="row justify-content-center">
         @foreach($properties as $property)
-            <div class="card" style="width: 23rem;">
+            <a class="card" style="width: 23rem; text-decoration: none; color: black" href="{{ url('/detail/'.$property->id) }}">
                 <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
                 <div class="card-body">
                     <p class="card-title">
                     <div class="row">
                         <div class="col-md-7">
-                            <a href="{{ url('/detail/'.$property->id) }}" style="text-decoration: none">{{ $property->name }}</a>
+                            {{ $property->name }}
                         </div>
                         <div class="col-md-5">
                             <span class="star">
@@ -55,7 +55,7 @@
                         {{ $property->address }}
                     </p>
                 </div>
-            </div>
+            </a>
         @endforeach
     </div>
 @endsection
