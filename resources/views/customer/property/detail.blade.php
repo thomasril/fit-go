@@ -120,7 +120,7 @@
                                     <label for="">Penilaian</label>
                                     <input type = "number" class = "form-control" name="number" min="1" max="5" value="1">
                                 </div>
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 text-center mt-2">
                                     <button type="submit" class = "btn btn-primary">Kirim Ulasan</button>
                                 </div>
                             </div>

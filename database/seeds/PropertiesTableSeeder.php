@@ -9,13 +9,13 @@ class PropertiesTableSeeder extends Seeder
         DB::table('properties')->insert([
             'owner_id'       => 2,
             'name'           => 'Tangkas Sport Center',
-            'description'    => 'Tangkas Sports Center adalah tempat yang tepat untuk keluarga yang memberikan kenyamanan dan kelengkapan fasilitas olahraga modern dan lengkap untuk para anggota. Pusat olahraga Tangkas adalah fasilitas olahraga terluas di Jakarta Barat, didukung oleh gedung yang megah dan layanan yang sangat baik.',
+            'description'    => 'Tangkas Sports Center adalah tempat yang tepat untuk keluarga yang memberikan kenyamanan dan kelengkapan fasilitas olahraga modern dan lengkap untuk para anggota.',
             'address'        => 'Jl. Tanjung Duren Komplek Greenville Blok Q, RT.11/RW.9, Duri Kepa, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11510',
             'latitude'       => '-6.1885837',
             'longitude'      => '106.7706041',
             'open_hour'      => '06:00:00',
             'close_hour'     => '23:00:00',
-            'status'         => 'Approved   ',
+            'status'         => 'Approved',
             'created_at'     => '2019-06-15 12:00:00',
         ]);
 
@@ -28,7 +28,7 @@ class PropertiesTableSeeder extends Seeder
             'longitude'      => '106.7784522',
             'open_hour'      => '09:00:00',
             'close_hour'     => '22:00:00',
-            'status'         => 'Pending',
+            'status'         => 'Approved',
             'created_at'     => '2019-06-15 12:00:00',
         ]);
 

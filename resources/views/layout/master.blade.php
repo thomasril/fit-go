@@ -50,7 +50,7 @@
                     @endif
                 @elseif(Auth::user()->role->name == 'Customer')
                     <li class="nav-item {{ Request::is('book/history') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('/book/history') }}">Histori Pemesanan</a>
+                        <a class="nav-link" href="{{ url('/book/history') }}">Histori</a>
                     </li>
                 @else
                     <li class="nav-item dropdown">
@@ -97,12 +97,19 @@
     <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <h5>Quick links</h5>
+                <h5>Navigasi</h5>
                 <div class = "row">
-                    <div class = "col-lg-3"><a href = "/">Beranda</a></div>
-                    <div class = "col-lg-3"><a href = "/search">Pencarian</a></div>
-                    <div class = "col-lg-3"><a href = "/property">Jadwal</a></div>
-                    <div class = "col-lg-3"><a href = "/">Home</a></div>
+                    <div class = "col-lg-2"><a href = "/login">Masuk</a></div>
+                    <div class = "col-lg-2"><a href = "/register">Daftar</a></div>
+                    <div class = "col-lg-2"><a href = "/">Beranda</a></div>
+                    <div class = "col-lg-2"><a href = "/search">Cari</a></div>
+                    @if(Auth::check())
+                        @if(Auth::user()->role->name == 'Owner')
+                            <div class = "col-lg-2"><a href = "/property">Jadwal</a></div>
+                        @elseif (Auth::user()->role->name == 'Customer')
+                            <div class = "col-lg-2"><a href = "/history">Histori</a></div>
+                        @endif
+                    @endif
                 </div>
             </div>
         </div>

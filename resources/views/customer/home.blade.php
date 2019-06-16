@@ -21,7 +21,7 @@
 @section('container')
     <div class="row justify-content-center">
         @foreach($properties as $property)
-            <a class="card" style="width: 23rem; text-decoration: none; color: black" href="{{ url('/detail/'.$property->id) }}">
+            <a class="card m-1" style="width: 23rem; text-decoration: none; color: black" href="{{ url('/detail/'.$property->id) }}">
                 <img class="card-img-top" src="{{ asset('images/properties/'.$property->images()->first()->name) }}" alt="Card image cap" width="100" height="250">
                 <div class="card-body">
                     <p class="card-title">

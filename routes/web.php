@@ -16,8 +16,6 @@ Route::get('/', 'PropertyController@home');
 Route::get('/search', 'PropertyController@searchPage')->name('search');
 
 Route::get('/detail/{id}', 'PropertyController@detailPage')->name('propetyDetailForCustomer');
-Route::get('/detail/{id}/book', 'PropertyController@bookingPage')->name('bookForCustomer');
-Route::get('/book/history', 'ScheduleController@bookingHistoryPage')->name('bookingHistoryForCustomer');
 
 Route::get('/reminder', function () {
     $options = array(
@@ -39,7 +37,7 @@ Route::get('/reminder', function () {
 });
 
 Route::group(['middleware' => ['guest']], function(){
-    Route::get('/login', 'Auth\LoginController@view');
+    Route::get('/login', 'Auth\LoginController@view')->name('login');
     Route::post('/login', 'Auth\LoginController@login');
     Route::get('/register', 'Auth\RegisterController@view');
     Route::post('/register', 'Auth\RegisterController@register');
@@ -97,6 +95,9 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::group(['middleware' => ['customer']], function(){
         Route::post('/review', 'ReviewController@review');
+        Route::get('/detail/{id}/book', 'PropertyController@bookingPage')->name('bookForCustomer');
+        Route::get('/book/history', 'ScheduleController@bookingHistoryPage')->name('bookingHistoryForCustomer');
+
     });
 
     Route::get('/logout', 'Auth\LoginController@logout');

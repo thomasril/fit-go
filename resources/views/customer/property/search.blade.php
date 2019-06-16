@@ -27,10 +27,10 @@
                 </div>
                 <div class="form-group">
                     <div class="form-row">
-                        <div class="col-6">Tanggal</div>
+                        <div class="col-12">Tanggal</div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6"><input type="date" name="date" class="form-control" value="{{request()->date}}"></div>
+                        <div class="col-12"><input type="date" name="date" class="form-control" value="{{request()->date}}"></div>
                     </div>
                     <div class="form-row">
                         <div class="col-6">Jam Mulai</div>
